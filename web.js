@@ -1,6 +1,36 @@
-var express = require('express');
+var express = require("express");
 
-var app = express.createServer(express.logger());
+var app = express();
+
+var model = require('models/model');
+
+var dbOptions = {};
+
+switch(process.env.NODE_ENV) {
+case 'production':
+    // Get the Heroku DB url, split it and set up properties.
+    var url     = require('url'),
+    dbUrl   = url.parse(process.env.HEROKU_POSTGRESQL_PURPLE_URL),
+    authArr = dbUrl.auth.split(':');
+
+    dbOptions.name          = dbUrl.path.substring(1);
+    dbOptions.user          = authArr[0];
+    dbOptions.pass          = authArr[1];
+    dbOptions.host          = dbUrl.host;
+    dbOptions.port          = null;
+    dbOptions.dialect       = 'postgres';
+    dbOptions.protocol      = 'postgres';
+    break;
+default:
+    throw new Error('Not production environment');
+}    
+
+// Initialize the models
+model.setup('./models', dbOptions.name, dbOptions.pass, {
+    host: dbOptions.host,
+    dialect: dbOptions.dialect,
+    production: dbOptions.protocol
+});
 
 app.get('/', function(request, response) {
     response.send('Hello World!');
@@ -11,7 +41,7 @@ app.get('/guides', function(request, response) {
 });
 
 app.get('/guides/:id', function(request, response) {
-    response.send({id:reques.params.id, city: "Copenhagen"});
+    response.send({id:request.params.id, city: "Copenhagen"});
 });
 
 var port = process.env.PORT || 5000;
