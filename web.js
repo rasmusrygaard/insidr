@@ -2,7 +2,7 @@ var express = require("express");
 
 var app = express();
 
-var model = require('./lib/model');
+var model = require('lib/model');
 
 var dbOptions = {};
 
