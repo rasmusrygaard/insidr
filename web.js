@@ -2,10 +2,11 @@ var express = require("express");
 
 var app = express();
 
-var model = require('models/model');
+var model = require('./models/model');
 
 var dbOptions = {};
 
+console.log(process.env.HEROKU_POSTGRESQL_PURPLE_URL);
 switch(process.env.NODE_ENV) {
 case 'production':
     // Get the Heroku DB url, split it and set up properties.
