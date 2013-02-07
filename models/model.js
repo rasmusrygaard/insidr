@@ -41,9 +41,9 @@ var singleton = function singleton() {
 	console.log(modelsPath);
 	filesystem.readdirSync(modelsPath).forEach(function (name) {
 	    console.log(name);
-	    var obj = require(modelsPath + "/" + name);
-	    var options = object.options || {};
 	    var modelName = name.replace(/\.js$/i, "");
+	    var obj = require(modelsPath + "/" + modelName);
+	    var options = object.options || {};
 	    models[modelName] = sequelize.define(modelName, obj.model, options);
 	    if ('relations' in obj) {
 		relationships[modelName] = object.relations;
