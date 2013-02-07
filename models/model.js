@@ -38,6 +38,7 @@ var singleton = function singleton() {
     }
 
     function init() {
+	console.log(modelsPath);
 	filesystem.readdirSync(modelsPath).forEach(function (name) {
 	    console.log(name);
 	    var obj = require(modelsPath + "/" + name);
