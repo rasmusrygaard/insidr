@@ -6,6 +6,14 @@ app.get('/', function(request, response) {
     response.send('Hello World!');
 });
 
+app.get('/guides', function(request, response) {
+    response.send([{city: "San Francisco"}, {city: "Copenhagen"}]);
+});
+
+app.get('/guides/:id', function(request, response) {
+    response.send({id:reques.params.id, city: "Copenhagen"});
+});
+
 var port = process.env.PORT || 5000;
 app.listen(port, function() {
     console.log('Listening on ' + port);
