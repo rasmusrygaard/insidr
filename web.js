@@ -2,7 +2,7 @@ var express = require("express");
 
 var app = express();
 
-var model = require('models/model');
+var model = require('./lib/model');
 
 var dbOptions = {};
 
@@ -25,7 +25,8 @@ default:
     throw new Error('Not production environment');
 }    
 
-// Initialize the models
+// Initialize the models.
+// model.js is in lib/ and models should be in models/
 model.setup('./models', dbOptions.name, dbOptions.pass, {
     host: dbOptions.host,
     dialect: dbOptions.dialect,
