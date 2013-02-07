@@ -2,7 +2,7 @@ var express = require("express");
 
 var app = express();
 
-var model = require('./models/model');
+var model = require('./lib/model');
 
 var dbOptions = {};
 
@@ -27,7 +27,7 @@ default:
 }    
 
 // Initialize the models
-model.setup('models', dbOptions.name, dbOptions.pass, {
+model.setup('./models', dbOptions.name, dbOptions.pass, {
     host: dbOptions.host,
     dialect: dbOptions.dialect,
     production: dbOptions.protocol
