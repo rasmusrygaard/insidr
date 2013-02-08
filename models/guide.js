@@ -1,4 +1,4 @@
-var orm = require('models/model.js');
+var orm = require('./lib/model');
 // Get the Sequelize constructor
 var Seq = orm.Seq();
 
