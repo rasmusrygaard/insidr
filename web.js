@@ -16,9 +16,9 @@ case 'production':
     dbOptions.name          = dbUrl.path.substring(1);
     dbOptions.user          = authArr[0];
     dbOptions.pass          = authArr[1];
-    dbOptions.host          = dbUrl.host;
+    dbOptions.host          = dbUrl.host.split(':')[0];
+    dbOptions.port          = 5432;
     dbOptions.omitNull      = true;
-    dbOptions.port          = null;
     dbOptions.dialect       = 'postgres';
     dbOptions.protocol      = 'postgres';
     break;
@@ -28,13 +28,21 @@ default:
 
 // Initialize the models.
 // model.js is in lib/ and models should be in models/
-model.setup('./models', dbOptions.name, dbOptions.pass, {
+model.setup('./models', dbOptions.name, dbOptions.user, dbOptions.pass, {
     host: dbOptions.host,
+    port: dbOptions.port,
+    omitNull: true,
     dialect: dbOptions.dialect,
     production: dbOptions.protocol
 });
 
-model.seq().sync();
+console.log(model.seq());
+
+model.seq().sync().success(function () {
+    console.log('Synced!');
+}).error(function (error) {
+    console.log('Sync failed: ' + error);
+});
 
 app.get('/', function(request, response) {
     response.send('Hello World!');
@@ -45,10 +53,12 @@ app.get('/guides', function(request, response) {
 });
 
 app.get('/create', function(request, response) {
-    var project = model.model('guide').build({
+    console.log('Saving');
+    var project = model.model('guide').create({
 	title: 'Test guide!',
 	city: 'Copenhagen'
-    }).save().success(function (project) {
+    }).success(function (project) {
+	console.log('SUCCES!');
 	response.send(project.values);
 	console.log(project.values);
     }).error(function (error) {
