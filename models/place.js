@@ -6,9 +6,7 @@ module.exports = {
     model: {
 	id: Seq.INTEGER,
 	name: Seq.STRING,
-	city: Seq.STRING
-    },
-    relations: {
-	hasMany: "place"
+	location: Seq.STRING,
+	type: Seq.STRING
     }
 }
