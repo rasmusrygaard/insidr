@@ -27,7 +27,7 @@ default:
 
 // Initialize the models.
 // model.js is in lib/ and models should be in models/
-model.setup('../models', dbOptions.name, dbOptions.pass, {
+model.setup('./models', dbOptions.name, dbOptions.pass, {
     host: dbOptions.host,
     dialect: dbOptions.dialect,
     production: dbOptions.protocol
