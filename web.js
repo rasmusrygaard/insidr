@@ -17,6 +17,7 @@ case 'production':
     dbOptions.user          = authArr[0];
     dbOptions.pass          = authArr[1];
     dbOptions.host          = dbUrl.host;
+    dbOptions.omitNull      = true;
     dbOptions.port          = null;
     dbOptions.dialect       = 'postgres';
     dbOptions.protocol      = 'postgres';
@@ -33,12 +34,28 @@ model.setup('./models', dbOptions.name, dbOptions.pass, {
     production: dbOptions.protocol
 });
 
+model.seq().sync();
+
 app.get('/', function(request, response) {
     response.send('Hello World!');
 });
 
 app.get('/guides', function(request, response) {
     response.send([{city: "San Francisco"}, {city: "Copenhagen"}]);
+});
+
+app.get('/create', function(request, response) {
+    var project = model.model('guide').build({
+	title: 'Test guide!',
+	city: 'Copenhagen'
+    }).save().success(function (project) {
+	response.send(project.values);
+	console.log(project.values);
+    }).error(function (error) {
+	console.log('error');
+	response.send(error);
+	console.log(error);
+    });
 });
 
 app.get('/guides/:id', function(request, response) {

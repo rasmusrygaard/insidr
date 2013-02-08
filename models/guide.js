@@ -4,7 +4,12 @@ var Seq = orm.Seq();
 
 module.exports = {
     model: {
-	id: Seq.INTEGER,
+	id:  { 
+	    type: Seq.INTEGER, 
+	    autoIncrement: true,
+	    primaryKey: true,
+	    defaultValue: 0
+	},
 	name: Seq.STRING,
 	city: Seq.STRING
     },
