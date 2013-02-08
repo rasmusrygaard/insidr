@@ -55,7 +55,7 @@ app.get('/guides', function(request, response) {
 app.get('/create', function(request, response) {
     console.log('Saving');
     var project = model.model('guide').create({
-	title: 'Test guide!',
+	name: 'Test guide!',
 	city: 'Copenhagen'
     }).success(function (project) {
 	console.log('SUCCES!');
