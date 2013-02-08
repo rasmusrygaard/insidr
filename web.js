@@ -6,7 +6,6 @@ var model = require('./lib/model');
 
 var dbOptions = {};
 
-console.log(process.env.HEROKU_POSTGRESQL_PURPLE_URL);
 switch(process.env.NODE_ENV) {
 case 'production':
     // Get the Heroku DB url, split it and set up properties.
@@ -26,8 +25,9 @@ default:
     throw new Error('Not production environment');
 }    
 
-// Initialize the models
-model.setup('./models', dbOptions.name, dbOptions.pass, {
+// Initialize the models.
+// model.js is in lib/ and models should be in models/
+model.setup('../models', dbOptions.name, dbOptions.pass, {
     host: dbOptions.host,
     dialect: dbOptions.dialect,
     production: dbOptions.protocol
