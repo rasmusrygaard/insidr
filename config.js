@@ -1,3 +1,5 @@
+var url = require('url');
+
 module.exports = function () {
     // Get database settings depending on environment.
     var dbOptions = { omitNull: true };
