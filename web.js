@@ -1,45 +1,18 @@
 var express = require("express");
-
 var app = express();
-
 var model = require('./lib/model');
+var url = require('url');
+var Conf = require('./config'),
+    config = new Conf();
 
-var dbOptions = {};
-
-switch(process.env.NODE_ENV) {
-case 'production':
-    // Get the Heroku DB url, split it and set up properties.
-    var url     = require('url'),
-    dbUrl   = url.parse(process.env.HEROKU_POSTGRESQL_PURPLE_URL),
-    authArr = dbUrl.auth.split(':');
-
-    dbOptions.name          = dbUrl.path.substring(1);
-    dbOptions.user          = authArr[0];
-    dbOptions.pass          = authArr[1];
-    dbOptions.host          = dbUrl.host.split(':')[0];
-    dbOptions.port          = 5432;
-    dbOptions.omitNull      = true;
-    dbOptions.dialect       = 'postgres';
-    dbOptions.protocol      = 'postgres';
-    break;
-default:
-    throw new Error('Not production environment');
-}    
+var dbOptions = config.db;
 
 // Initialize the models.
 // model.js is in lib/ and models should be in models/
-model.setup('./models', dbOptions.name, dbOptions.user, dbOptions.pass, {
-    host: dbOptions.host,
-    port: dbOptions.port,
-    omitNull: true,
-    dialect: dbOptions.dialect,
-    production: dbOptions.protocol
-});
-
-console.log(model.seq());
+model.setup('./models', dbOptions.name, dbOptions.user, dbOptions.pass, dbOptions);
 
 model.seq().sync().success(function () {
-    console.log('Synced!');
+    console.log('Database synced!');
 }).error(function (error) {
     console.log('Sync failed: ' + error);
 });
