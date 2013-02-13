@@ -8,6 +8,10 @@ lib-cov
 *.gz
 .env
 
+*.js~
+*.js#
+.DS_STORE
+
 pids
 logs
 results
