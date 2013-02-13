@@ -1,5 +1,4 @@
 var orm = require('../lib/model');
-// Get the Sequelize constructor
 var Seq = orm.Seq();
 
 module.exports = {
@@ -10,10 +9,17 @@ module.exports = {
 	    primaryKey: true,
 	    defaultValue: 0
 	},
-	name: Seq.STRING,
-	city: Seq.STRING
+	name: {
+	    type: Seq.STRING,
+	    allowNull: false
+	},
+	city: {
+	    type: Seq.STRING,
+	    allowNull: false
+	}
     },
     relations: {
-	hasMany: "place"
+	hasMany: "place",
+	hasOne: "category"
     }
 }
