@@ -1,9 +1,17 @@
 var express = require("express");
 var app = express();
+var path = require('path');
+app.use(express.bodyParser());
+
 var model = require('./lib/model');
 var url = require('url');
 var Conf = require('./config'),
     config = new Conf();
+
+// TMP
+require('./routes/guide')(app);
+require('./routes/place')(app);
+require('./routes/category')(app);
 
 var dbOptions = config.db;
 
@@ -15,14 +23,6 @@ model.seq().sync().success(function () {
     console.log('Database synced!');
 }).error(function (error) {
     console.log('Sync failed: ' + error);
-});
-
-app.get('/', function(request, response) {
-    response.send('Hello World!');
-});
-
-app.get('/guides', function(request, response) {
-    response.send([{city: "San Francisco"}, {city: "Copenhagen"}]);
 });
 
 app.get('/create', function(request, response) {
@@ -45,7 +45,13 @@ app.get('/guides/:id', function(request, response) {
     response.send({id:request.params.id, city: "Copenhagen"});
 });
 
-var port = process.env.PORT || 5000;
-app.listen(port, function() {
-    console.log('Listening on ' + port);
+
+app.use(express.logger('dev'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.set('port', process.env.PORT || 5000);
+
+
+
+app.listen(app.get('port'), function() {
+    console.log('Listening on ' + app.get('port'));
 });
