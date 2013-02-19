@@ -1,6 +1,7 @@
 var express = require("express");
 var app = express();
 var path = require('path');
+var lessMiddlware = require('less-middleware');
 app.use(express.bodyParser());
 
 var model = require('./lib/model');
@@ -12,6 +13,7 @@ var Conf = require('./config'),
 require('./routes/guide')(app);
 require('./routes/place')(app);
 require('./routes/category')(app);
+require('./routes/location')(app);
 
 var dbOptions = config.db;
 
@@ -47,6 +49,10 @@ app.get('/guides/:id', function(request, response) {
 
 
 app.use(express.logger('dev'));
+app.use(lessMiddlware({
+    src: __dirname + '/public',
+    compress: true
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('port', process.env.PORT || 5000);
 
