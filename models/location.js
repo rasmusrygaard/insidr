@@ -1,4 +1,4 @@
-// place.js
+// location.js
 var orm = require('../lib/model');
 var Seq = orm.Seq();
 
@@ -10,10 +10,16 @@ module.exports = {
 	    primaryKey: true,
 	    defaultValue: 0
 	},
-	name: Seq.STRING,
+
+	address: Seq.STRING,
+	city: Seq.STRING,
+	country: Seq.STRING,
+	lat: Seq.FLOAT,
+	lng: Seq.FLOAT,
+	postalCode: Seq.INTEGER,
+	state: Seq.STRING
     },
     relations: {
-	hasOne: 'location',
-	hasMany: 'guide'
+	hasOne: "place"
     }
 }

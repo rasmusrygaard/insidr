@@ -5,5 +5,8 @@ module.exports = {
     model: {
 	id: Seq.INTEGER,
 	name: Seq.STRING,
+    },
+    relations: {
+	hasOne: 'category'
     }
 }
