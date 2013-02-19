@@ -1,39 +1,26 @@
-var GuideView = Backbone.View.extend({
-    initialize: function () {
-	this.render();
-    },
-    
-    navigate: function () {
-	app.navigate('/foo/14', {trigger: true});
-    },
-
-    events: {
-	'click' : 'navigate'
-    },
-
-    template: _.template("<p><%= name %></p><p><%= city %></p>"),
-
-    render: function () {
-	this.$el.html(this.template(this.model.toJSON()));
-	return this;
-    }
-});
-
 var AppRouter = Backbone.Router.extend({
     routes: {
-	'': 'simpleGuide',
+	'': 'home',
 	'foo/:id': 'guideDetails'
     },
 
     initialize: function () {
-	
+	this.headerView = new HeaderView();
+	$('.header').html(this.headerView.el);
+    },
+
+    home: function () {
+	if (!this.homeView) {
+	    this.homeView = new HomeView();
+	}
+	$('#content').html(this.homeView.el);
     },
     
     simpleGuide: function (id) {
-	var guide = new Guide({ _id: 11 });
+	var guide = new Guide({ _id: 11, name: 'Test Guide' });
 	guide.fetch({ success: function () {
 	    var guideView = new GuideView({model: guide});
-	    $('#container').html(guideView.render().el);
+	    $('#content').html(guideView.render().el);
 	}});
     },
 
@@ -41,24 +28,27 @@ var AppRouter = Backbone.Router.extend({
 	var guide = new Guide({ id: id });
 	guide.fetch().success(function () {
 	    var guideView = new GuideView({model: guide});
-	    $('#container').html(guideView.render().el);
+	    $('#content').html(guideView.render().el);
 	});
     }
 });
 
 var AppView = Backbone.View.extend({
-    el: '#container',
+    el: '#content',
     
     initialize: function() {
-	this.render();
+
     },
 
     render: function() {
-	this.$el.html("Hello World<a href=\"/foo\">foo</a>");
+	
+	this.$el.html("Hello World<a href=\"/foo/14\">foo</a>");
     }
 });
 
 var av = new AppView();
-var app = new AppRouter();
 
-Backbone.history.start({pushState: true });
+utils.loadTemplate(['GuideView', 'HeaderView', 'HomeView'], function () {
+    var app = new AppRouter();
+    Backbone.history.start({pushState: true });
+});
