@@ -4,7 +4,8 @@
     "dependencies": {
 	"express": "latest",
 	"pg": "0.6.15",
-	"sequelize": "1.4.x"
+	"sequelize": "1.4.x",
+	"less-middleware": "latest"
     },
     "engines": {
 	"node": "0.8.x",
