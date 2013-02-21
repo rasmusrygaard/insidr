@@ -6,7 +6,7 @@ var getCategories = function (req, res) {
 };
 
 var setup = function (app) {
-    app.get('/categories', getCategories);
+    app.get(app.get('rootUrl') + '/categories', getCategories);
 };
 
 module.exports = setup;

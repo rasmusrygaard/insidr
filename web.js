@@ -23,6 +23,7 @@ model.seq().sync().success(function () {
 
 app.configure(function () {
     app.set('port', process.env.PORT || 5000);
+    app.set('rootUrl', '/api');
     app.use(express.bodyParser());
     app.use(express.logger('dev'));    
     app.use(lessMiddlware({

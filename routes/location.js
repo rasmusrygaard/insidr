@@ -27,9 +27,9 @@ var getLocation = function (req, res, next) {
 };
 
 var setup = function (app) {
-    app.get('/locations', getLocations);
-    app.post('/locations', createLocation);
-    app.get('/locations/:id', getLocation, function (req, res) { 
+    app.get(app.get('rootUrl') + '/locations', getLocations);
+    app.post(app.get('rootUrl') + '/locations', createLocation);
+    app.get(app.get('rootUrl') + '/locations/:id', getLocation, function (req, res) { 
 	res.send(res.location);
     });
 };

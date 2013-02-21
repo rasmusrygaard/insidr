@@ -40,10 +40,10 @@ var getGuidePlaces = function (req, res) {
 };
 
 var setup = function (app) {
-    app.get('/guides', getGuides);
-    app.post('/guides', createGuide);
-    app.get('/guides/:id/places', getGuide, getGuidePlaces);
-    app.get('/guides/:id', getGuide, function (req, res) { 
+    app.get(app.get('rootUrl') + '/guides', getGuides);
+    app.post(app.get('rootUrl') + '/guides', createGuide);
+    app.get(app.get('rootUrl') + '/guides/:id/places', getGuide, getGuidePlaces);
+    app.get(app.get('rootUrl') + '/guides/:id', getGuide, function (req, res) { 
 	res.send(res.guide);
     });
 };

@@ -1,5 +1,5 @@
 window.Guide = Backbone.Model.extend({
-    urlRoot: '/guides',
+    urlRoot: '/api/guides',
     
     idAttribute: 'id',
 

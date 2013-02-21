@@ -28,9 +28,9 @@ var getPlace = function (req, res, next) {
 };
 
 var setup = function (app) {
-    app.get('/places', getPlaces);
-    app.post('/places', createPlace);
-    app.get('/places/:id', getPlace, function (req, res) { 
+    app.get(app.get('rootUrl') + '/places', getPlaces);
+    app.post(app.get('rootUrl') + '/places', createPlace);
+    app.get(app.get('rootUrl') + '/places/:id', getPlace, function (req, res) { 
 	res.send(res.place);
     });
 };
