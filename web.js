@@ -21,29 +21,8 @@ model.seq().sync().success(function () {
     console.log('Sync failed: ' + error);
 });
 
-app.get('/create', function(request, response) {
-    console.log('Saving');
-    var project = model.model('guide').create({
-	name: 'Test guide!',
-	city: 'Copenhagen'
-    }).success(function (project) {
-	console.log('SUCCES!');
-	response.send(project.values);
-	console.log(project.values);
-    }).error(function (error) {
-	console.log('error');
-	response.send(error);
-	console.log(error);
-    });
-});
-
-app.get('/guides/:id', function(request, response) {
-    response.send({id:request.params.id, city: "Copenhagen"});
-});
-
 app.configure(function () {
     app.set('port', process.env.PORT || 5000);
-
     app.use(express.bodyParser());
     app.use(express.logger('dev'));    
     app.use(lessMiddlware({
@@ -53,11 +32,15 @@ app.configure(function () {
     app.use(express.static(path.join(__dirname, '/public')));
 });
 
-// TMP
-require('./routes/guide')(app);
-require('./routes/place')(app);
-require('./routes/category')(app);
-require('./routes/location')(app);
+/* Load routes from ./routes/ subdirectory. */
+['guide', 'place', 'category', 'location'].forEach(function (element) {
+    require('./routes/' + element)(app);
+});
+
+/* Default to serving index.html and let Backbone handle route. */
+app.use(function(req, res) {
+    res.sendfile('./public/index.html');
+});
 
 http.createServer(app).listen(app.get('port'), function() {
     console.log('Listening on ' + app.get('port'));
