@@ -27,9 +27,22 @@ var getGuide = function (req, res, next) {
     });
 };
 
+var getGuidePlaces = function (req, res) {
+    console.log(res.guide);
+    res.guide.getPlaces()
+	.success(function(a) {
+	    console.log('success');
+	    res.send(a);
+	})
+	.error(function() {
+	    console.log('error');
+	});
+};
+
 var setup = function (app) {
     app.get('/guides', getGuides);
     app.post('/guides', createGuide);
+    app.get('/guides/:id/places', getGuide, getGuidePlaces);
     app.get('/guides/:id', getGuide, function (req, res) { 
 	res.send(res.guide);
     });
