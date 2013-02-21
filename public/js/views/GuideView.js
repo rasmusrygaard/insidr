@@ -1,18 +1,19 @@
 window.GuideView = Backbone.View.extend({
     initialize: function () {
-	this.render();
-    },
-    
-    navigate: function () {
-	app.navigate('/foo/14', {trigger: true});
-    },
-
-    events: {
-	'click' : 'navigate'
+	// Empty
     },
 
     render: function () {
-	this.$el.html(this.template(this.model.toJSON()));
+	console.log(this.model.places().models);
+	_.each(this.model.places().models, function (e) {
+	    e.location();
+	    e.loc = e._location.toJSON();
+	    console.log(e.loc.address);
+	});
+	this.$el.html(this.template({
+	    guide: this.model.toJSON(),
+	    places: this.model.places().toJSON()
+	}));
 	return this;
     }
 });

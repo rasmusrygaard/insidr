@@ -27,9 +27,22 @@ var getPlace = function (req, res, next) {
     });
 };
 
+var getPlaceLocation = function (req, res) {
+    console.log('------------------------------');
+    res.place.getLocation()
+	.success(function (locations) {
+	    console.log('abc');
+	    res.send(locations);
+	})
+	.error(function (error) {
+	    res.json(400, { error: 'An error occurred: ' + error });
+	});
+};
+
 var setup = function (app) {
     app.get(app.get('rootUrl') + '/places', getPlaces);
     app.post(app.get('rootUrl') + '/places', createPlace);
+    app.get(app.get('rootUrl') + '/places/:id/locations', getPlace, getPlaceLocation);
     app.get(app.get('rootUrl') + '/places/:id', getPlace, function (req, res) { 
 	res.send(res.place);
     });

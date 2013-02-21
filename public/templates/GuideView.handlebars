@@ -1,6 +1,21 @@
 <div class="span1" />
 <div class="span8">
-  <h2>{{name}}</h2>
-  <p>A guide to {{city}}</p>
+  <h2>{{guide.name}}</h2>
+  <p>A guide to {{guide.city}}</p>
+  
+  <table class="table table-striped">
+    <tr>
+      <th>abc</th>
+      <th>def</th>
+      <th>def</th>
+    </tr>
+  {{#each places}}
+    <tr>
+      <td>{{this.name}}</td>
+      <td>{{this.loc.address}}</td>
+      <td>{{this.loc.postalCode}}</td>
+    </tr>
+  {{/each}}
+  </table>
 </div>
 <div class="span1" />

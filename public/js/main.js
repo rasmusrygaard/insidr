@@ -3,7 +3,7 @@ var AppRouter = Backbone.Router.extend({
 	'': 'home',
 	'foo/:id': 'guideDetails',
 	'guides': 'showGuides',
-	'guide/:id': 'showGuide',
+	'guides/:id': 'showGuide',
     },
 
     initialize: function () {
@@ -28,9 +28,8 @@ var AppRouter = Backbone.Router.extend({
 
     showGuide: function (id) {
 	var guide = new Guide({id: id});
-	console.log('guide: ' + guide.toJSON());
-	guide.fetch({success: function (a) {
-	    var guideView = new GuideView({ model: a });
+	guide.fetch({success: function () {
+	    var guideView = new GuideView({ model: guide });
 	    $('#content').html(guideView.render().el);
 	}});
     },
@@ -52,19 +51,6 @@ var AppRouter = Backbone.Router.extend({
     }
 });
 
-var AppView = Backbone.View.extend({
-    el: '#content',
-    
-    initialize: function() {
-
-    },
-
-    render: function() {
-	
-	this.$el.html("Hello World<a href=\"/foo/14\">foo</a>");
-    }
-});
-
 /* Override clicks to use Backbone Router. */
 $(document).on("click", "a[href^='/']", function(event) {
   if (!event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey) {
@@ -74,7 +60,6 @@ $(document).on("click", "a[href^='/']", function(event) {
   }
 });
 
-var av = new AppView();
 var app;
 utils.loadTemplate(['GuideView', 'HeaderView', 'HomeView', 'GuidesView'], function () {
     app = new AppRouter();

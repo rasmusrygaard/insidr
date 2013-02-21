@@ -28,14 +28,12 @@ var getGuide = function (req, res, next) {
 };
 
 var getGuidePlaces = function (req, res) {
-    console.log(res.guide);
     res.guide.getPlaces()
 	.success(function(a) {
-	    console.log('success');
 	    res.send(a);
 	})
 	.error(function() {
-	    console.log('error');
+	    res.json(400, { error: 'An error occurred: ' + error });
 	});
 };
 
