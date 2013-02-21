@@ -5,13 +5,7 @@ window.Guide = Backbone.Model.extend({
 
     initialize: function() {
 	_.bindAll(this); 
-    },
-
-    defaults: {
-	'name': '',
-	'id': 11,
-	'city': ''
-    },
+    }
 /*
     validate: function(attrs, options) {
 	if (attrs.name.length == 0) {
