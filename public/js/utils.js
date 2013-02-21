@@ -4,7 +4,7 @@ window.utils = {
 
 	$.each(views, function(index, view) {
 	    if (window[view]) {
-		deferreds.push($.get('templates/' + view + '.handlebars', function (data) {
+		deferreds.push($.get('/templates/' + view + '.handlebars', function (data) {
 		    window[view].prototype.template = Handlebars.compile(data);
 		}))
 	    } else {
