@@ -65,8 +65,16 @@ var AppView = Backbone.View.extend({
     }
 });
 
-var av = new AppView();
+/* Override clicks to use Backbone Router. */
+$(document).on("click", "a[href^='/']", function(event) {
+  if (!event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey) {
+    event.preventDefault();
+    var url = $(event.currentTarget).attr("href").replace(/^\//, "");
+    app.navigate(url, { trigger: true });
+  }
+});
 
+var av = new AppView();
 var app;
 utils.loadTemplate(['GuideView', 'HeaderView', 'HomeView', 'GuidesView'], function () {
     app = new AppRouter();
