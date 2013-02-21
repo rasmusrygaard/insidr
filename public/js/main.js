@@ -1,12 +1,14 @@
 var AppRouter = Backbone.Router.extend({
     routes: {
 	'': 'home',
-	'foo/:id': 'guideDetails'
+	'foo/:id': 'guideDetails',
+	'guides': 'showGuides',
+	'guide/:id': 'showGuide',
     },
 
     initialize: function () {
 	this.headerView = new HeaderView();
-	$('.header').html(this.headerView.el);
+	$('.header').html(this.headerView.render().el);
     },
 
     home: function () {
@@ -14,6 +16,23 @@ var AppRouter = Backbone.Router.extend({
 	    this.homeView = new HomeView();
 	}
 	$('#content').html(this.homeView.el);
+    },
+
+    showGuides: function () {
+	var guides = new Guides();
+	guides.fetch({ success: function () {
+	    var guidesView = new GuidesView({ model: guides });
+	    $('#content').html(guidesView.render().el);
+	}});
+    },
+
+    showGuide: function (id) {
+	var guide = new Guide({id: id});
+	console.log('guide: ' + guide.toJSON());
+	guide.fetch({success: function (a) {
+	    var guideView = new GuideView({ model: a });
+	    $('#content').html(guideView.render().el);
+	}});
     },
     
     simpleGuide: function (id) {
@@ -48,7 +67,8 @@ var AppView = Backbone.View.extend({
 
 var av = new AppView();
 
-utils.loadTemplate(['GuideView', 'HeaderView', 'HomeView'], function () {
-    var app = new AppRouter();
+var app;
+utils.loadTemplate(['GuideView', 'HeaderView', 'HomeView', 'GuidesView'], function () {
+    app = new AppRouter();
     Backbone.history.start({pushState: true });
 });
