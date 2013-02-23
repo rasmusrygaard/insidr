@@ -23,19 +23,30 @@ var createPlace = function (req, res) {
 var getPlace = function (req, res, next) {
     model.model('place').find(parseInt(req.params.id)).success(function (place) {
 	res.place = place;
-	next();
+	if (req.query.locations === 'true') {	    
+	    res.place.getLocation()
+		.success(function (location) {
+		    res.place.attributes.push('location');
+		    res.place.location = location.toJSON();
+		})
+		.done(function () {
+		    next();
+		});
+	} else {
+	    next();
+	}
     });
 };
 
 var getPlaceLocation = function (req, res) {
-    console.log('------------------------------');
     res.place.getLocation()
-	.success(function (locations) {
-	    console.log('abc');
-	    res.send(locations);
+	.success(function (location) {
+	    res.place.attributes.push('location');
+	    res.place.location = location.toJSON();
+	    res.send(res.place);
 	})
 	.error(function (error) {
-	    res.json(400, { error: 'An error occurred: ' + error });
+	    res.json(400, { error: 'An error occurred: ' + error });		
 	});
 };
 
