@@ -71,7 +71,7 @@ $(document).on("click", "a[href^='/']", function(event) {
 });
 
 var app;
-utils.loadTemplate(['GuideView', 'HeaderView', 'HomeView', 'GuidesView', 'PlaceView'], function () {
+utils.loadTemplate(['GuideView', 'HeaderView', 'HomeView', 'GuidesView', 'PlaceView', 'LocationView'], function () {
     app = new AppRouter();
     Backbone.history.start({pushState: true });
 });

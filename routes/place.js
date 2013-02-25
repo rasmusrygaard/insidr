@@ -41,9 +41,7 @@ var getPlace = function (req, res, next) {
 var getPlaceLocation = function (req, res) {
     res.place.getLocation()
 	.success(function (location) {
-	    res.place.attributes.push('location');
-	    res.place.location = location.toJSON();
-	    res.send(res.place);
+	    res.send(location);
 	})
 	.error(function (error) {
 	    res.json(400, { error: 'An error occurred: ' + error });		
