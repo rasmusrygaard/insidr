@@ -7,6 +7,6 @@ module.exports = {
 	name: Seq.STRING,
     },
     relations: {
-	hasOne: 'category'
+	hasMany: 'guide'
     }
 }
