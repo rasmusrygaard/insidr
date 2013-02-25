@@ -1,13 +1,12 @@
-window.HomeView = Backbone.View.extend({
-	tagName: 'div',
-
+window.CategoryView = Backbone.View.extend({
 	initialize: function () {
 		this.render();
 	},
 
 	render: function () {
 		this.$el.html(this.template({
-			categories: this.model.toJSON()
+			category: this.model.attributes,
+			guides: this.model.get('guides').toJSON()
 		}));
 		return this;
 	}

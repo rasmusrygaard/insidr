@@ -1,77 +1,90 @@
 var AppRouter = Backbone.Router.extend({
-    routes: {
-	'': 'home',
-	'foo/:id': 'guideDetails',
-	'guides': 'showGuides',
-	'guides/:id': 'showGuide',
-	'places/:id': 'showPlace'
-    },
+	routes: {
+		'': 'home',
+		'foo/:id': 'guideDetails',
+		'guides': 'showGuides',
+		'guides/:id': 'showGuide',
+		'places/:id': 'showPlace',
+		'categories/:id': 'showCategory'
+	},
 
-    initialize: function () {
-	this.headerView = new HeaderView();
-	$('.header').html(this.headerView.render().el);
-    },
+	initialize: function () {
+		this.headerView = new HeaderView();
+		$('.header').html(this.headerView.render().el);
+	},
 
-    home: function () {
-	if (!this.homeView) {
-	    this.homeView = new HomeView();
+	home: function () {
+		if (!this.homeView) {
+			var categories = new Categories();
+			categories.fetch({ success: function (cats) {
+				this.homeView = new HomeView({model: cats});
+				$('#content').html(this.homeView.el);
+			}});
+		}
+	},
+
+	showGuides: function () {
+		var guides = new Guides();
+		guides.fetch({ success: function () {
+			var guidesView = new GuidesView({ model: guides });
+			$('#content').html(guidesView.el);
+		}});
+	},
+
+	showCategory: function (id) {
+		var category = new Category({ id: id });
+		category.fetch({ success: function (cat) {
+			var categoryView = new CategoryView({ model: cat});
+			$('#content').html(categoryView.render().el);
+		}})
+	},
+
+	showGuide: function (id) {
+		var guide = new Guide({id: id});
+		guide.set({ 'getLocations': true });
+		guide.fetch({success: function () {
+			var guideView = new GuideView({ model: guide });
+			$('#content').html(guideView.render().el);
+		}});
+	},
+
+	simpleGuide: function (id) {
+		var guide = new Guide({ _id: 11, name: 'Test Guide' });
+		guide.fetch({ success: function () {
+			var guideView = new GuideView({model: guide});
+			$('#content').html(guideView.render().el);
+		}});
+	},
+
+	guideDetails: function (id) {
+		var guide = new Guide({ id: id });
+		guide.fetch().success(function () {
+			var guideView = new GuideView({model: guide});
+			$('#content').html(guideView.render().el);
+		});
+	},
+
+	showPlace: function (id) {
+		var place = new Place({ id: id });
+		place.fetch().success(function () {
+			var placeView = new PlaceView({model: place});
+			$('#content').html(placeView.render().el);
+		});
 	}
-	$('#content').html(this.homeView.el);
-    },
-
-    showGuides: function () {
-	var guides = new Guides();
-	guides.fetch({ success: function () {
-	    var guidesView = new GuidesView({ model: guides });
-	    $('#content').html(guidesView.render().el);
-	}});
-    },
-
-    showGuide: function (id) {
-	var guide = new Guide({id: id});
-	guide.set({ 'getLocations': true });
-	guide.fetch({success: function () {
-	    var guideView = new GuideView({ model: guide });
-	    $('#content').html(guideView.render().el);
-	}});
-    },
-    
-    simpleGuide: function (id) {
-	var guide = new Guide({ _id: 11, name: 'Test Guide' });
-	guide.fetch({ success: function () {
-	    var guideView = new GuideView({model: guide});
-	    $('#content').html(guideView.render().el);
-	}});
-    },
-
-    guideDetails: function (id) {
-	var guide = new Guide({ id: id });
-	guide.fetch().success(function () {
-	    var guideView = new GuideView({model: guide});
-	    $('#content').html(guideView.render().el);
-	});
-    },
-
-    showPlace: function (id) {
-	var place = new Place({ id: id });
-	place.fetch().success(function () {
-	    var placeView = new PlaceView({model: place});
-	    $('#content').html(placeView.render().el);
-	});
-    }
 });
 
 /* Override clicks to use Backbone Router. */
 $(document).on("click", "a[href^='/']", function(event) {
-  if (!event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey) {
-    event.preventDefault();
-    var url = $(event.currentTarget).attr("href").replace(/^\//, "");
-    app.navigate(url, { trigger: true });
-  }
+	if (!event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey) {
+		event.preventDefault();
+		var url = $(event.currentTarget).attr("href").replace(/^\//, "");
+		app.navigate(url, { trigger: true });
+	}
 });
 
 var app;
-utils.loadTemplate(['GuideView', 'HeaderView', 'HomeView', 'GuidesView', 'PlaceView', 'LocationView'], function () {
-    app = new AppRouter();
-    Backbone.history.start({pushState: true });
-});
+utils.loadTemplate(['GuideView', 'HeaderView', 'HomeView', 'GuidesView', 
+	'PlaceView', 'LocationView', 'CategoryView'], function () {
+		app = new AppRouter();
+		Backbone.history.start({pushState: true });
+	});

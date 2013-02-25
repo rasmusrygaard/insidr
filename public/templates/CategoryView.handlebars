@@ -1,0 +1,7 @@
+<h2>Guides for {{category.name}}</h2>
+
+<ul class="nav nav-stacked nav-tabs">
+	{{#each guides}}
+	<li><a href="/guides/{{this.id}}">{{this.name}}</a></li>
+	{{/each}}
+</ul>

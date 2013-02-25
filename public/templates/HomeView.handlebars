@@ -3,10 +3,8 @@
   <h2>Let the locals guide you</h2>
 
   <ul class="nav nav-stacked nav-tabs">
-    <li><a href="#">Coffee</a></li>
-    <li><a href="#">Restaurants</a></li>
-    <li><a href="#">Bars</a></li>
-    <li><a href="#">Nightclubs</a></li>
-    <li><a href="#">Shopping</a></li>
+  	{{#each categories}}
+    <li><a href="/categories/{{this.id}}">{{this.name}}</a></li>
+    {{/each}}
   </ul>
 </div>
