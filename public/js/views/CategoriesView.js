@@ -1,11 +1,11 @@
-var GuidesView = Backbone.View.extend({
+window.CategoriesView = Backbone.View.extend({
 	initialize: function () {
 		this.render();
 	},
 
 	render: function () {
 		this.$el.html(this.template({
-			guides: this.model.toJSON() 
+			categories: this.model.toJSON()
 		}));
 		return this;
 	}

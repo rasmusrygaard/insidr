@@ -1,5 +1,3 @@
-<div class="span1" />
-<div class="span8">
   <h2>{{guide.name}}</h2>
   <p>A guide to {{guide.city}}</p>
   
@@ -12,10 +10,8 @@
   {{#each places}}
     <tr>
       <td><a href="/places/{{this.id}}">{{this.name}}</a></td>
-      <td>{{this.location.address}}</td>
-      <td>{{this.location.postalCode}}</td>
+      <td>{{address this}}</td>
+      <td>{{postalCode this}}</td>
     </tr>
   {{/each}}
   </table>
-</div>
-<div class="span1" />

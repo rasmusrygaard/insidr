@@ -5,7 +5,8 @@ var AppRouter = Backbone.Router.extend({
 		'guides': 'showGuides',
 		'guides/:id': 'showGuide',
 		'places/:id': 'showPlace',
-		'categories/:id': 'showCategory'
+		'categories/:id': 'showCategory',
+		'categories': 'showCategories'
 	},
 
 	initialize: function () {
@@ -23,6 +24,16 @@ var AppRouter = Backbone.Router.extend({
 		}
 	},
 
+	// GET '/categories'
+	showCategories: function () {
+		var categories = new Categories();
+		categories.fetch({ success: function (cats) {
+			var categoriesView = new CategoriesView({model: cats});
+			$('#content').html(categoriesView.el);
+		}});
+	},
+
+	// GET '/guides
 	showGuides: function () {
 		var guides = new Guides();
 		guides.fetch({ success: function () {
@@ -31,6 +42,7 @@ var AppRouter = Backbone.Router.extend({
 		}});
 	},
 
+	// GET '/category/:id'
 	showCategory: function (id) {
 		var category = new Category({ id: id });
 		category.fetch({ success: function (cat) {
@@ -84,7 +96,7 @@ $(document).on("click", "a[href^='/']", function(event) {
 
 var app;
 utils.loadTemplate(['GuideView', 'HeaderView', 'HomeView', 'GuidesView', 
-	'PlaceView', 'LocationView', 'CategoryView'], function () {
+	'PlaceView', 'LocationView', 'CategoryView', 'CategoriesView'], function () {
 		app = new AppRouter();
 		Backbone.history.start({pushState: true });
 	});
