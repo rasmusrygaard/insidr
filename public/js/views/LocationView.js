@@ -1,7 +1,7 @@
 var LocationView = Backbone.View.extend({
 	initialize: function () {
 		this.latlng = new google.maps.LatLng(this.model.get('lat'),
-											 this.model.get('lng'));
+											this.model.get('lng'));
 		this.mapOptions = {
 			center: this.latlng,
 			zoom: 15,
@@ -17,7 +17,7 @@ var LocationView = Backbone.View.extend({
 		var map = new google.maps.Map(this.$el.find('#map_canvas')[0],
 			this.mapOptions);
 
-		var marker = new google.maps.Marker({
+		new google.maps.Marker({
 			position: this.latlng,
 			map: map,
 			title: 'Testing!'

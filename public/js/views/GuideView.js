@@ -1,8 +1,8 @@
 window.GuideView = Backbone.View.extend({
 	initialize: function () {
 		this.locationsView = new LocationsView({
-			model: _.map(this.model.places.models, function (p) { 
-				return p.get('location'); 
+			model: _.map(this.model.places.models, function (p) {
+				return p.get('location');
 			})
 		});
 		/* Empty */

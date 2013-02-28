@@ -52,8 +52,7 @@ var AppRouter = Backbone.Router.extend({
 	},
 
 	showGuide: function (id) {
-		var guide = new Guide({id: id});
-		guide.set({ 'getLocations': true });
+		var guide = new Guide({id: id, getLocations: true});
 		guide.fetch({success: function () {
 			var guideView = new GuideView({ model: guide });
 			$('#content').html(guideView.render().el);
