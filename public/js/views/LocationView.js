@@ -16,10 +16,16 @@ var LocationView = Backbone.View.extend({
 		}));
 		var map = new google.maps.Map(this.$el.find('#map_canvas')[0],
 			this.mapOptions);
+
 		var marker = new google.maps.Marker({
 			position: this.latlng,
 			map: map,
 			title: 'Testing!'
+		});
+		var _this = this;
+		google.maps.event.addListener(map, 'idle', function() {
+			google.maps.event.trigger(map, 'resize');
+			map.setCenter(_this.latlng);
 		});
 		return this;
 	}

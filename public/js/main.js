@@ -96,7 +96,7 @@ $(document).on("click", "a[href^='/']", function(event) {
 
 var app;
 utils.loadTemplate(['GuideView', 'HeaderView', 'HomeView', 'GuidesView', 
-	'PlaceView', 'LocationView', 'CategoryView', 'CategoriesView'], function () {
+	'PlaceView', 'LocationView', 'LocationsView', 'CategoryView', 'CategoriesView'], function () {
 		app = new AppRouter();
 		Backbone.history.start({pushState: true });
 	});

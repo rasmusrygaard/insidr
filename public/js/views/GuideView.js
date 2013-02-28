@@ -1,5 +1,10 @@
 window.GuideView = Backbone.View.extend({
 	initialize: function () {
+		this.locationsView = new LocationsView({
+			model: _.map(this.model.places.models, function (p) { 
+				return p.get('location'); 
+			})
+		});
 		/* Empty */
 	},
 
@@ -12,8 +17,9 @@ window.GuideView = Backbone.View.extend({
 		});
 		this.$el.html(this.template({
 			guide: this.model.toJSON(),
-			places: this.model.places().toJSON()
+			places: this.model.places.toJSON()
 		}));
+		this.$el.find('#location').html(this.locationsView.render().el);
 		return this;
 	}
 });
