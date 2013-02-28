@@ -2,7 +2,8 @@ window.Category = Backbone.Model.extend({
 	urlRoot: '/api/categories',
 
 	initialize: function () {
-		this.set({ 'guides': this.getGuides() });
+		if (this.collection === undefined)
+			this.set({ 'guides': this.getGuides() });
 	},
 
 	getGuides: function () {

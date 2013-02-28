@@ -4,8 +4,9 @@ window.Guide = Backbone.Model.extend({
 	idAttribute: 'id',
 
 	initialize: function() {
-		this.places = this.getPlaces();
-		_.bindAll(this); 
+		if (this.collection === undefined) {
+			this.places = this.getPlaces();
+		}
 	},
 
 	defaults: {
