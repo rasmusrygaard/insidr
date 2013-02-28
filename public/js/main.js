@@ -1,4 +1,3 @@
-/*jshint strict: false, latedef: true*/
 var AppRouter = Backbone.Router.extend({
 	routes: {
 		'': 'home',
@@ -79,16 +78,17 @@ var AppRouter = Backbone.Router.extend({
 });
 
 /* Override clicks to use Backbone Router. */
-$(document).on("click", "a[href^='/']", function(event) {
+$(document).on('click', "[href^='/']", function(event) {
 	if (!event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey) {
 		event.preventDefault();
-		var url = $(event.currentTarget).attr("href").replace(/^\//, "");
+		var url = $(event.currentTarget).attr('href').replace(/^\//, '');
 		app.navigate(url, { trigger: true });
 	}
 });
 
 var app;
-utils.loadTemplate(['GuideView', 'HeaderView', 'HomeView', 'GuidesView', 
+
+utils.loadTemplate(['GuideView', 'HeaderView', 'HomeView', 'GuidesView',
 	'PlaceView', 'LocationView', 'LocationsView', 'CategoryView', 'CategoriesView'], function () {
 		app = new AppRouter();
 		Backbone.history.start({pushState: true });
