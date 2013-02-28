@@ -1,3 +1,4 @@
+/*jshint strict: false, latedef: true*/
 var AppRouter = Backbone.Router.extend({
 	routes: {
 		'': 'home',
@@ -48,7 +49,7 @@ var AppRouter = Backbone.Router.extend({
 		category.fetch({ success: function (cat) {
 			var categoryView = new CategoryView({ model: cat});
 			$('#content').html(categoryView.render().el);
-		}})
+		}});
 	},
 
 	showGuide: function (id) {
@@ -56,14 +57,6 @@ var AppRouter = Backbone.Router.extend({
 		guide.set({ 'getLocations': true });
 		guide.fetch({success: function () {
 			var guideView = new GuideView({ model: guide });
-			$('#content').html(guideView.render().el);
-		}});
-	},
-
-	simpleGuide: function (id) {
-		var guide = new Guide({ _id: 11, name: 'Test Guide' });
-		guide.fetch({ success: function () {
-			var guideView = new GuideView({model: guide});
 			$('#content').html(guideView.render().el);
 		}});
 	},
