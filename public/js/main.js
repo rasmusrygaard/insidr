@@ -1,20 +1,3 @@
-/* Override clicks to use Backbone Router. */
-// $(document).on('click', "[href^='/']", function(event) {
-// 	if (!event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey) {
-// 		event.preventDefault();
-// 		var url = $(event.currentTarget).attr('href').replace(/^\//, '');
-// 		app.navigate(url, { trigger: true });
-// 	}
-// });
-
-// var app;
-
-// utils.loadTemplate(['GuideView', 'HeaderView', 'HomeView', 'GuidesView',
-// 	'PlaceView', 'LocationView', 'LocationsView', 'CategoryView', 'CategoriesView'], function () {
-// 		app = new AppRouter();
-// 		Backbone.history.start({pushState: true });
-// 	});
-
 var Insidr = new (Backbone.View.extend({
 	Models: {},
 	Views: {},
