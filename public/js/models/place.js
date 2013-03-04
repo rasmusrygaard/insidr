@@ -1,4 +1,4 @@
-window.Place = Backbone.Model.extend({
+Insidr.Models.Place = Backbone.Model.extend({
   urlRoot: '/api/places',
 
   initialize: function() {
@@ -9,9 +9,9 @@ window.Place = Backbone.Model.extend({
   loaded, fetch it synchronously from the server. */
   getLocation: function () {
     if (this.has('location')) {
-      return new Location(this.get('location'));
+      return new Insidr.Models.Location(this.get('location'));
     } else {
-      var loc = new Location();
+      var loc = new Insidr.Models.Location();
       loc.url = this.urlRoot + '/' + this.get('id') + '/locations';
       loc.fetch({ async: false });
       return loc;

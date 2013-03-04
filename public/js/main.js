@@ -1,4 +1,43 @@
-var AppRouter = Backbone.Router.extend({
+/* Override clicks to use Backbone Router. */
+// $(document).on('click', "[href^='/']", function(event) {
+// 	if (!event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey) {
+// 		event.preventDefault();
+// 		var url = $(event.currentTarget).attr('href').replace(/^\//, '');
+// 		app.navigate(url, { trigger: true });
+// 	}
+// });
+
+// var app;
+
+// utils.loadTemplate(['GuideView', 'HeaderView', 'HomeView', 'GuidesView',
+// 	'PlaceView', 'LocationView', 'LocationsView', 'CategoryView', 'CategoriesView'], function () {
+// 		app = new AppRouter();
+// 		Backbone.history.start({pushState: true });
+// 	});
+
+var Insidr = new (Backbone.View.extend({
+	Models: {},
+	Views: {},
+	Collections: {},
+	Router: {},
+	events: {
+		'click a': function (e) {
+			e.preventDefault();
+			Backbone.history.navigate(e.target.pathname, {trigger: true});
+		}
+	},
+	start: function () {
+		utils.loadTemplate(['Guide', 'Header', 'Home', 'Guides',
+			'Place', 'Location', 'Locations', 'Category', 'Categories'], function () {
+				var router = new Insidr.Router();
+				Backbone.history.start({pushState: true});
+				
+			}
+			);
+	}
+}))({el: document.body});
+
+Insidr.Router = Backbone.Router.extend({
 	routes: {
 		'': 'home',
 		'foo/:id': 'guideDetails',
@@ -10,15 +49,15 @@ var AppRouter = Backbone.Router.extend({
 	},
 
 	initialize: function () {
-		this.headerView = new HeaderView();
+		this.headerView = new Insidr.Views.Header();
 		$('.header').html(this.headerView.render().el);
 	},
 
 	home: function () {
 		if (!this.homeView) {
-			var categories = new Categories();
+			var categories = new Insidr.Collections.Categories();
 			categories.fetch({ success: function (cats) {
-				this.homeView = new HomeView({model: cats});
+				this.homeView = new Insidr.Views.Home({model: cats});
 				$('#content').html(this.homeView.el);
 			}});
 		}
@@ -26,69 +65,56 @@ var AppRouter = Backbone.Router.extend({
 
 	// GET '/categories'
 	showCategories: function () {
-		var categories = new Categories();
+		var categories = new Insidr.Collections.Categories();
 		categories.fetch({ success: function (cats) {
-			var categoriesView = new CategoriesView({model: cats});
+			var categoriesView = new Insidr.Views.Categories({model: cats});
 			$('#content').html(categoriesView.el);
 		}});
 	},
 
 	// GET '/guides
 	showGuides: function () {
-		var guides = new Guides();
+		var guides = new Insidr.Collections.Guides();
 		guides.fetch({ success: function () {
-			var guidesView = new GuidesView({ model: guides });
+			var guidesView = new Insidr.Views.Guides({ model: guides });
 			$('#content').html(guidesView.el);
 		}});
 	},
 
 	// GET '/category/:id'
 	showCategory: function (id) {
-		var category = new Category({ id: id });
+		var category = new Insidr.Models.Category({ id: id });
 		category.fetch({ success: function (cat) {
-			var categoryView = new CategoryView({ model: cat});
+			var categoryView = new Insidr.Views.Category({ model: cat});
 			$('#content').html(categoryView.render().el);
 		}});
 	},
 
 	showGuide: function (id) {
-		var guide = new Guide({id: id, getLocations: true});
+		var guide = new Insidr.Models.Guide({id: id, getLocations: true});
+		console.log(guide);
 		guide.fetch({success: function () {
-			var guideView = new GuideView({ model: guide });
+			var guideView = new Insidr.Views.Guide({ model: guide });
 			$('#content').html(guideView.render().el);
 		}});
 	},
 
 	guideDetails: function (id) {
-		var guide = new Guide({ id: id });
+		var guide = new Insidr.Models.Guide({ id: id });
 		guide.fetch().success(function () {
-			var guideView = new GuideView({model: guide});
+			var guideView = new Insidr.Views.Guide({model: guide});
 			$('#content').html(guideView.render().el);
 		});
 	},
 
 	showPlace: function (id) {
-		var place = new Place({ id: id });
+		var place = new Insidr.Models.Place({ id: id });
 		place.fetch().success(function () {
-			var placeView = new PlaceView({model: place});
+			var placeView = new Insidr.Views.Place({model: place});
 			$('#content').html(placeView.render().el);
 		});
 	}
 });
 
-/* Override clicks to use Backbone Router. */
-$(document).on('click', "[href^='/']", function(event) {
-	if (!event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey) {
-		event.preventDefault();
-		var url = $(event.currentTarget).attr('href').replace(/^\//, '');
-		app.navigate(url, { trigger: true });
-	}
-});
+$(function () { Insidr.start(); });
 
-var app;
-
-utils.loadTemplate(['GuideView', 'HeaderView', 'HomeView', 'GuidesView',
-	'PlaceView', 'LocationView', 'LocationsView', 'CategoryView', 'CategoriesView'], function () {
-		app = new AppRouter();
-		Backbone.history.start({pushState: true });
-	});

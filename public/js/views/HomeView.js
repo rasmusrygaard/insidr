@@ -1,4 +1,4 @@
-window.HomeView = Backbone.View.extend({
+Insidr.Views.Home = Backbone.View.extend({
 	tagName: 'div',
 
 	initialize: function () {

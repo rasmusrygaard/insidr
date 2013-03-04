@@ -1,4 +1,4 @@
-window.CategoryView = Backbone.View.extend({
+Insidr.Views.Category = Backbone.View.extend({
 	initialize: function () {
 		this.render();
 	},

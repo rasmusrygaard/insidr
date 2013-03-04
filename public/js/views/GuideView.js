@@ -1,6 +1,6 @@
-window.GuideView = Backbone.View.extend({
+Insidr.Views.Guide = Backbone.View.extend({
 	initialize: function () {
-		this.locationsView = new LocationsView({
+		this.locationsView = new Insidr.Views.Locations({
 			model: _.map(this.model.places.models, function (p) {
 				return p.get('location');
 			})

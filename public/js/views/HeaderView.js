@@ -1,4 +1,4 @@
-window.HeaderView = Backbone.View.extend({
+Insidr.Views.Header = Backbone.View.extend({
     initialize: function () {
 	this.render();
     },   

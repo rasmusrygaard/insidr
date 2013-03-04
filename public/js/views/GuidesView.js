@@ -1,4 +1,4 @@
-var GuidesView = Backbone.View.extend({
+Insidr.Views.Guides = Backbone.View.extend({
 	initialize: function () {
 		this.render();
 	},

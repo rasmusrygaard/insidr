@@ -1,4 +1,4 @@
-var LocationView = Backbone.View.extend({
+Insidr.Views.Location = Backbone.View.extend({
 	initialize: function () {
 		this.latlng = new google.maps.LatLng(this.model.get('lat'),
 											this.model.get('lng'));

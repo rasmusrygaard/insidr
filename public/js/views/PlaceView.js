@@ -1,6 +1,6 @@
-var PlaceView = Backbone.View.extend({
+Insidr.Views.Place = Backbone.View.extend({
 	initialize: function () {
-		this.locationView = new LocationView({model: this.model.get('location')});
+		this.locationView = new Insidr.Views.Location({model: this.model.get('location')});
 		this.render();
 	},
 

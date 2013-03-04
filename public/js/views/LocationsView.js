@@ -1,4 +1,4 @@
-var LocationsView = Backbone.View.extend({
+Insidr.Views.Locations = Backbone.View.extend({
   initialize: function () {
     this.setMapBoundaries();
     this.latlng = new google.maps.LatLng((this.minLat + this.maxLat) / 2,

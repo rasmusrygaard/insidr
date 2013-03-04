@@ -3,9 +3,10 @@ window.utils = {
 	var deferreds = [];
 
 	$.each(views, function(index, view) {
-	    if (window[view]) {
-		deferreds.push($.get('/templates/' + view + '.handlebars', function (data) {
-		    window[view].prototype.template = Handlebars.compile(data);
+		console.log(Insidr);
+	    if (Insidr.Views[view]) {
+		deferreds.push($.get('/templates/' + view + 'View.handlebars', function (data) {
+		    Insidr.Views[view].prototype.template = Handlebars.compile(data);
 		}))
 	    } else {
 		alert('View not found: ' + view);
