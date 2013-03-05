@@ -1,0 +1,40 @@
+{{#if guide}}
+	<h2>Edit {{guide.name}}</h2>
+{{else}}
+	<h2>Create a new guide</h2>
+{{/if}}
+
+<form class="form-horizontal">
+	<div class="control-group">
+		<label class="control-label" for="inputName">Guide Name</label>
+		<div class="controls">
+			<input type="text" id="inputName" name="name" placeholder="Guide Name" value="{{guide.name}}">
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="selectCategory">Category</label>
+		<div class="controls">
+			<select name="selectCategory">
+				{{#each categories}}
+					{{#isGuideCategory ../guide this}}
+						<option value="{{this.id}}" selected="selected">{{this.name}}</option>
+					{{else}}
+						<option value="{{this.id}}">{{this.name}}</option>
+					{{/isGuideCategory}}
+				{{/each}}
+			</select>
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="inputDescription">Description</label>
+		<div class="controls" id="inputDescription" name="description">
+			<textarea placeholder="Describe your guide" rows="5" value="{{guide.description}}"></textarea>
+		</div>
+	</div>
+	<div class="control=group">
+		<div class="controls">
+			<button class="btn btn-success" id="submitButton">{{#if guide}}Save {{else}}Create {{/if}}Guide</button>
+			<button class="btn btn-danger" id="cancelButton">Cancel</button>
+		</div>
+	</div>
+</form>

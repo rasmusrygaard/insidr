@@ -8,6 +8,14 @@ Insidr.Views.Guide = Backbone.View.extend({
 		/* Empty */
 	},
 
+	events: {
+		'click #editButton': 'edit'
+	},
+
+	edit: function () {
+		Backbone.history.navigate('/guides/' + this.model.get('id') + '/edit', {trigger: true});
+	},
+
 	render: function () {
 		Handlebars.registerHelper('address', function(place) {
 			return place.location.get('address');

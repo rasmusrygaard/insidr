@@ -10,7 +10,7 @@ var Insidr = new (Backbone.View.extend({
 		}
 	},
 	start: function () {
-		utils.loadTemplate(['Guide', 'Header', 'Home', 'Guides',
+		utils.loadTemplate(['Guide', 'Header', 'Home', 'Guides', 'GuideForm',
 			'Place', 'Location', 'Locations', 'Category', 'Categories'], function () {
 				var router = new Insidr.Router();
 				Backbone.history.start({pushState: true});
@@ -25,7 +25,9 @@ Insidr.Router = Backbone.Router.extend({
 		'': 'home',
 		'foo/:id': 'guideDetails',
 		'guides': 'showGuides',
+		'guides/new': 'newGuide',
 		'guides/:id': 'showGuide',
+		'guides/:id/edit': 'editGuide',
 		'places/:id': 'showPlace',
 		'categories/:id': 'showCategory',
 		'categories': 'showCategories'
@@ -36,23 +38,25 @@ Insidr.Router = Backbone.Router.extend({
 		$('.header').html(this.headerView.render().el);
 	},
 
+	getCategories: function () {
+		if (!this._categories) {
+			this._categories = new Insidr.Collections.Categories();
+			this._categories.fetch({ async: false });
+		}
+		return this._categories;
+	},
+
 	home: function () {
 		if (!this.homeView) {
-			var categories = new Insidr.Collections.Categories();
-			categories.fetch({ success: function (cats) {
-				this.homeView = new Insidr.Views.Home({model: cats});
-				$('#content').html(this.homeView.el);
-			}});
+			this.homeView = new Insidr.Views.Home({model: this.getCategories() });
 		}
+		$('#content').html(this.homeView.el);
 	},
 
 	// GET '/categories'
 	showCategories: function () {
-		var categories = new Insidr.Collections.Categories();
-		categories.fetch({ success: function (cats) {
-			var categoriesView = new Insidr.Views.Categories({model: cats});
-			$('#content').html(categoriesView.el);
-		}});
+		var categoriesView = new Insidr.Views.Categories({model: this.getCategories() });
+		$('#content').html(categoriesView.el);
 	},
 
 	// GET '/guides
@@ -75,11 +79,34 @@ Insidr.Router = Backbone.Router.extend({
 
 	showGuide: function (id) {
 		var guide = new Insidr.Models.Guide({id: id, getLocations: true});
-		console.log(guide);
 		guide.fetch({success: function () {
 			var guideView = new Insidr.Views.Guide({ model: guide });
 			$('#content').html(guideView.render().el);
 		}});
+	},
+
+	editGuide: function (id) {
+		var guide = new Insidr.Models.Guide({id: id});
+		var _this = this;
+		guide.fetch({success: function () {
+			var guideFormView = new Insidr.Views.GuideForm({
+				model: { guide: guide,
+					categories: _this.getCategories()
+				}
+			});
+			$('#content').html(guideFormView.el);
+		}});
+	},
+
+	newGuide: function () {
+		var guide = new Insidr.Models.Guide();
+		var guideFormView = new Insidr.Views.GuideForm({
+			model: { 
+				guide: guide,
+				categories: this.getCategories()
+			}
+		});
+		$('#content').html(guideFormView.el);
 	},
 
 	guideDetails: function (id) {
