@@ -50,6 +50,18 @@ var checkPlacesQuery = function (req, res, next) {
 	}
 };
 
+var updateGuide = function (req, res) {
+	var guide = res.guide;
+	guide.name = req.body.name;
+	guide.categoryId = req.body.categoryId;
+	guide.city = req.body.city;
+	guide.save().success(function () {
+		console.log('Success');
+	}).error(function (e) {
+		console.log(e);
+	});
+};
+
 var getGuidePlaces = function (req, res, next) {
 	res.guide.getPlaces()
 	.success(function(places) {
@@ -65,7 +77,8 @@ var setup = function (app) {
 	app.get(app.get('rootUrl') + '/guides', getGuides);
 	app.post(app.get('rootUrl') + '/guides', createGuide);
 	app.get(app.get('rootUrl') + '/guides/:id/places', getGuide, getGuidePlaces, 
-		checkPlacesQuery, function (req, res) { res.send(res.places) });
+		checkPlacesQuery, function (req, res) { res.send(res.places); });
+	app.put(app.get('rootUrl') + '/guides/:id', getGuide, updateGuide);
 	app.get(app.get('rootUrl') + '/guides/:id', getGuide, function (req, res) { 
 		res.send(res.guide);
 	});
