@@ -1,0 +1,5 @@
+<ul class="nav nav-stacked nav-tabs">
+{{#each places}}
+	<li><a href="#">{{this.name}} ({{this.location.attributes.city}}, {{this.location.attributes.state}})</a></li>
+{{/each}}
+</ul>

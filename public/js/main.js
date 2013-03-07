@@ -11,7 +11,7 @@ var Insidr = new (Backbone.View.extend({
 	},
 	start: function () {
 		utils.loadTemplate(['Guide', 'Header', 'Home', 'Guides', 'GuideForm',
-			'Place', 'Location', 'Locations', 'Category', 'Categories'], function () {
+			'Place', 'Location', 'Locations', 'Category', 'Categories', 'FSPlaces', 'PlaceForm'], function () {
 				var router = new Insidr.Router();
 				Backbone.history.start({pushState: true});
 				
@@ -28,9 +28,12 @@ Insidr.Router = Backbone.Router.extend({
 		'guides/new': 'newGuide',
 		'guides/:id': 'showGuide',
 		'guides/:id/edit': 'editGuide',
+		'places/add': 'addPlace',
+		'places/search/:query': 'searchPlaces',
 		'places/:id': 'showPlace',
 		'categories/:id': 'showCategory',
 		'categories': 'showCategories'
+		
 	},
 
 	initialize: function () {
@@ -82,6 +85,30 @@ Insidr.Router = Backbone.Router.extend({
 		guide.fetch({success: function () {
 			var guideView = new Insidr.Views.Guide({ model: guide });
 			$('#content').html(guideView.render().el);
+		}});
+	},
+
+	addPlace: function (query) {
+		// var places = new Insidr.Collections.FSPlaces();
+		// places.setNear('Stanford,CA');
+		// places.setQuery(query);
+		// places.fetch({success: function () {
+		// 	var placesView = new Insidr.Views.FSPlaces({model: places});
+		// 	$('#content').html(placesView.el);
+		// }});
+		var placesView = new Insidr.Views.PlaceForm();
+		$('#content').html(placesView.el);
+	},
+
+	searchPlaces: function (query) {
+		var places = new Insidr.Collections.FSPlaces();
+		places.setNear('Stanford,CA');
+		places.setQuery(query);
+		places.fetch({success: function () {
+			ppp = places;
+			var placesView = new Insidr.Views.FSPlaces({model: places});
+			$('#content').html(placesView.el);
+			setTimeout(function () { alert('removing'); places.remove(places.at(0)); }, 1000);
 		}});
 	},
 
