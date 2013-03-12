@@ -19,3 +19,11 @@ body { padding-top: 60px; }
 	margin-right: -6px;
 	opacity: .25;
 }
+
+.nav > li .removeButton {
+	float: right;
+	margin-top: -3px;
+	margin-right: -6px;
+	padding: 3px;
+	cursor: pointer;
+}

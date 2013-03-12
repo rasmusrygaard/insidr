@@ -12,12 +12,18 @@ Insidr.Views.GuideForm = Backbone.View.extend({
 
 	events: {
 		'click #submitButton': 'save',
-		'click #cancelButton': 'cancel'
+		'click #cancelButton': 'cancel',
+		'click #placesButton': 'editPlaces'
 	},
 
 	cancel: function (e) {
 		e.preventDefault();
 		Backbone.history.navigate('/guides/' + this.model.guide.get('id'), {trigger: true});
+	},
+
+	editPlaces: function (e) {
+		e.preventDefault();
+		Backbone.history.navigate('/guides/' + this.model.guide.get('id') + '/places/edit', {trigger: true});
 	},
 
 	save: function (e) {

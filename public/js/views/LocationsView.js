@@ -40,13 +40,21 @@ Insidr.Views.Locations = Backbone.View.extend({
       var marker = new google.maps.Marker({
         position: new google.maps.LatLng(loc.get('lat'), loc.get('lng')),
         map: map,
-        title: 'Testing!'
+        title: 'Testing!',
+        name: loc.address
       });
+      google.maps.event.addListener(marker, 'click', function () { alert('click'); });
     });
     var _this = this;
-    google.maps.event.addListener(map, 'idle', function () {
+    google.maps.event.addListener(map, "bounds_changed", function() {
+      _this.boundsChanged = true;
+    });
+    google.maps.event.addListener(map, 'idle', function() {
       google.maps.event.trigger(map, 'resize');
-      map.setCenter(_this.latlng);
+      if (!_this.boundsChanged) {
+        map.setCenter(_this.latlng);
+        _this.boundsChanged = false;
+      }
     });
     return this;
   }

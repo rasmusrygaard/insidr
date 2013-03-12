@@ -21,7 +21,7 @@ var createGuide = function (req, res) {
 };
 
 var getGuide = function (req, res, next) {
-	model.model('guide').find(parseInt(req.params.id)).success(function (guide) {
+	model.model('guide').find(parseInt(req.params.id, 10)).success(function (guide) {
 		res.guide = guide;
 		next();
 	});
@@ -73,9 +73,18 @@ var getGuidePlaces = function (req, res, next) {
 	});
 };
 
+var createGuidePlace = function (req, res) {
+	model.model('place').find(parseInt(req.params.pid, 10)).success(function (place) {
+		console.log(JSON.stringify(place));
+		res.guide.addPlace(place);
+		res.send(201);
+	});
+};
+
 var setup = function (app) {
 	app.get(app.get('rootUrl') + '/guides', getGuides);
 	app.post(app.get('rootUrl') + '/guides', createGuide);
+	app.post(app.get('rootUrl') + '/guides/:id/places/:pid', getGuide, createGuidePlace);
 	app.get(app.get('rootUrl') + '/guides/:id/places', getGuide, getGuidePlaces, 
 		checkPlacesQuery, function (req, res) { res.send(res.places); });
 	app.put(app.get('rootUrl') + '/guides/:id', getGuide, updateGuide);

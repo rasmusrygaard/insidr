@@ -11,7 +11,7 @@ var Insidr = new (Backbone.View.extend({
 	},
 	start: function () {
 		utils.loadTemplate(['Guide', 'Header', 'Home', 'Guides', 'GuideForm',
-			'Place', 'Location', 'Locations', 'Category', 'Categories', 'FSPlaces', 'PlaceForm'], function () {
+			'Place', 'Location', 'Locations', 'Category', 'Categories', 'FSPlaces', 'PlaceForm', 'PlacesForm'], function () {
 				var router = new Insidr.Router();
 				Backbone.history.start({pushState: true});
 				
@@ -28,6 +28,7 @@ Insidr.Router = Backbone.Router.extend({
 		'guides/new': 'newGuide',
 		'guides/:id': 'showGuide',
 		'guides/:id/edit': 'editGuide',
+		'guides/:id/places/edit': 'editGuidePlaces',
 		'places/add': 'addPlace',
 		'places/search/:query': 'searchPlaces',
 		'places/:id': 'showPlace',
@@ -122,6 +123,17 @@ Insidr.Router = Backbone.Router.extend({
 				}
 			});
 			$('#content').html(guideFormView.el);
+		}});
+	},
+
+	editGuidePlaces: function (id) {
+		var guide = new Insidr.Models.Guide({id: id, getLocations: true});
+		var _this = this;
+		guide.fetch({success: function () {
+			var guidePlacesView = new Insidr.Views.PlacesForm({
+				model: {guide: guide, places: guide.getPlaces()}
+			});
+			$('#content').html(guidePlacesView.el);
 		}});
 	},
 

@@ -7,6 +7,7 @@ Insidr.Views.Location = Backbone.View.extend({
 			zoom: 15,
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
+		this.boundsChanged = false;
 		this.render();
 	},
 
@@ -23,9 +24,20 @@ Insidr.Views.Location = Backbone.View.extend({
 			title: 'Testing!'
 		});
 		var _this = this;
+		google.maps.event.addListener(map, "bounds_changed", function() {
+			alert('changed');
+			_this.boundsChanged = true;
+		});
+		google.maps.event.addListener(map, 'center_changed', function() {
+			alert('center changed');
+			map.panTo(marker.getPosition());
+		});
 		google.maps.event.addListener(map, 'idle', function() {
 			google.maps.event.trigger(map, 'resize');
-			map.setCenter(_this.latlng);
+			alert('idle');
+			if (!_this.boundsChanged) {
+				map.setCenter(_this.latlng);
+			}
 		});
 		return this;
 	}

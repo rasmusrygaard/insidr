@@ -19,6 +19,6 @@ Insidr.Views.PlaceForm = Backbone.View.extend({
 		e.preventDefault();
 		var query = $('input[name=place]').val();
 		this.placesList.setQuery(query);
-		this.placesList.fetch({error: function () { console.log('Done fetching'); }});
+		this.placesList.fetch();
 	}
 });

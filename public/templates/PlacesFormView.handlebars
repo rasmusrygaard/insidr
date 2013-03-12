@@ -1,0 +1,30 @@
+<h2>Edit places for {{guide.name}}</h2>
+
+<ul class="nav nav-stacked nav-tabs">
+	{{#each places}}
+	<li><a>{{this.name}} ({{this.location.attributes.city}}, {{this.location.attributes.state}})
+		<btn class="btn-danger removeButton" id="{{this.id}}">Remove</btn>
+	</a></li>
+	{{/each}}
+</ul>
+
+<form>
+<div class="control-group">
+	<div class="controls">
+		<button class="btn btn-success" id="saveButton">Save Changes</button>
+		<button class="btn btn-danger" id="cancelButton">Cancel</button>	
+	</div>
+</div>
+</form>
+
+<h2>Add a new place</h2>
+<form class="form-horizontal" id="placeForm">
+	<div class="control-group">
+		<div class="controls">
+			<input type="text" id="inputName" name="place" placeholder="&quot;sushi&quot;, &quot;coffee&quot;">
+			<button class="btn btn-success" id="searchButton">Search</button>
+		</div>
+	</div>
+</form>
+
+<div id="fsPlaces"></div>
