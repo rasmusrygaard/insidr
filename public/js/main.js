@@ -10,7 +10,7 @@ var Insidr = new (Backbone.View.extend({
 		}
 	},
 	start: function () {
-		utils.loadTemplate(['Guide', 'Header', 'Home', 'Guides', 'GuideForm',
+		utils.loadTemplate(['Guide', 'Header', 'Home', 'Guides', 'GuideForm', 'Flash',
 			'Place', 'Location', 'Locations', 'Category', 'Categories', 'FSPlaces', 'PlaceForm', 'PlacesForm'], function () {
 				var router = new Insidr.Router();
 				Backbone.history.start({pushState: true});
@@ -40,6 +40,8 @@ Insidr.Router = Backbone.Router.extend({
 	initialize: function () {
 		this.headerView = new Insidr.Views.Header();
 		$('.header').html(this.headerView.render().el);
+		this.flashView = new Insidr.Views.Flash();
+		$('#flash').html(this.flashView.render().el);
 	},
 
 	getCategories: function () {
@@ -155,6 +157,18 @@ Insidr.Router = Backbone.Router.extend({
 			var placeView = new Insidr.Views.Place({model: place});
 			$('#content').html(placeView.render().el);
 		});
+	}
+});
+
+Insidr.Dispatcher = _.extend({}, Backbone.Events);
+
+Insidr.Views.Flash = Backbone.View.Extend({
+	initialize: function () {
+		Dispatcher.bind('show_message', this.render);
+	},
+
+	render: function (msg) {
+		this.$el.html(this.template({message: msg}));
 	}
 });
 
