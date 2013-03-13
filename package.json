@@ -1,15 +1,16 @@
 {
-    "name": "insidr",
-    "version": "0.0.1",
-    "dependencies": {
-	"express": "latest",
-	"pg": "0.6.15",
-	"sequelize": "1.4.x",
-	"less-middleware": "latest",
-	"underscore": "latest"
-    },
-    "engines": {
-	"node": "0.8.x",
-	"npm": "1.1.x"
-    }
-}
+	"name": "insidr",
+	"version": "0.0.1",
+	"dependencies": {
+		"express": "latest",
+		"pg": "0.6.15",
+		"sequelize": "1.4.x",
+		"less-middleware": "latest",
+		"underscore": "latest",
+		"uglify-js": "latest"
+		},
+		"engines": {
+			"node": "0.8.x",
+			"npm": "1.1.x"
+		}
+	}
