@@ -25,12 +25,7 @@ Insidr.Views.Location = Backbone.View.extend({
 		});
 		var _this = this;
 		google.maps.event.addListener(map, "bounds_changed", function() {
-			alert('changed');
 			_this.boundsChanged = true;
-		});
-		google.maps.event.addListener(map, 'center_changed', function() {
-			alert('center changed');
-			map.panTo(marker.getPosition());
 		});
 		google.maps.event.addListener(map, 'idle', function() {
 			google.maps.event.trigger(map, 'resize');

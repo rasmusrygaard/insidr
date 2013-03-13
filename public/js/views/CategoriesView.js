@@ -1,5 +1,6 @@
 Insidr.Views.Categories = Backbone.View.extend({
 	initialize: function () {
+		this.listenTo(this.model, 'reset', this.render);
 		this.render();
 	},
 

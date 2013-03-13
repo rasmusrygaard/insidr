@@ -45,7 +45,7 @@ Insidr.Router = Backbone.Router.extend({
 	getCategories: function () {
 		if (!this._categories) {
 			this._categories = new Insidr.Collections.Categories();
-			this._categories.fetch({ async: false });
+			this._categories.fetch();
 		}
 		return this._categories;
 	},
@@ -90,13 +90,6 @@ Insidr.Router = Backbone.Router.extend({
 	},
 
 	addPlace: function (query) {
-		// var places = new Insidr.Collections.FSPlaces();
-		// places.setNear('Stanford,CA');
-		// places.setQuery(query);
-		// places.fetch({success: function () {
-		// 	var placesView = new Insidr.Views.FSPlaces({model: places});
-		// 	$('#content').html(placesView.el);
-		// }});
 		var placesView = new Insidr.Views.PlaceForm();
 		$('#content').html(placesView.el);
 	},
@@ -165,5 +158,5 @@ Insidr.Router = Backbone.Router.extend({
 	}
 });
 
-$(function () { Insidr.start(); });
+$(document).ready(function () { Insidr.start(); });
 

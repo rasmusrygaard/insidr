@@ -2,6 +2,7 @@ Insidr.Views.Home = Backbone.View.extend({
 	tagName: 'div',
 
 	initialize: function () {
+		this.listenTo(this.model, 'reset', this.render);
 		this.render();
 	},
 

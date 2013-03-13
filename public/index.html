@@ -12,11 +12,8 @@
   <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyAQqHvxkQjPa1a7DR9gz6Wgtf_0Vpkx13Y&sensor=true" type="text/javascript"></script>
   </head>
   <body>
-  <style type="text/css">
-      #map_canvas { height: 200px }
-    </style>
-  <div class="header"></div>
 
+  <div class="header"></div>
 
   <div id="container" class="container-fluid">
     <div class="row-fluid">
@@ -34,22 +31,20 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.rc.2/handlebars.js" type="text/javascript"></script>
   <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
 
-    </script>
-
-    <script src="/js/utils.js"></script>
-    <script src="/js/main.js"></script>
-
+  <!-- App -->
+  <script src="/js/utils.js"></script>
+  <script src="/js/main.js"></script>
 
   <!-- Models -->
-  <script src="/js/models/guide.js"></script>
-  <script src="/js/models/guides.js"></script>
-  <script src="/js/models/place.js"></script>
-  <script src="/js/models/places.js"></script>
-  <script src="/js/models/location.js"></script>
   <script src="/js/models/category.js"></script>
-  <script src="/js/models/categories.js"></script>
   <script src="/js/models/fsplace.js"></script>
-  <script src="/js/models/fsplaces.js"></script>
+  <script src="/js/models/guide.js"></script>
+  <script src="/js/models/location.js"></script>
+  <script src="/js/models/place.js"></script>
+  <script src="/js/collections/categories.js"></script>
+  <script src="/js/collections/fsplaces.js"></script>
+  <script src="/js/collections/guides.js"></script>
+  <script src="/js/collections/places.js"></script>
   
   <!-- Views -->
   <script src="/js/views/CategoriesView.js"></script>
@@ -66,9 +61,8 @@
   <script src="/js/views/LocationView.js"></script>
   <script src="/js/views/PlaceView.js"></script>
 
-  
-  
-
-
+  <!-- Production
+  <script src="/app.min.js" type="text/javascript"></script>
+  -->
 </body>
 </html>
