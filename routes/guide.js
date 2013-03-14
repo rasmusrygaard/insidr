@@ -55,10 +55,13 @@ var updateGuide = function (req, res) {
 	guide.name = req.body.name;
 	guide.categoryId = req.body.categoryId;
 	guide.city = req.body.city;
+	guide.description = req.body.description;
 	guide.save().success(function () {
-		console.log('Success');
-	}).error(function (e) {
-		console.log(e);
+		console.log('Updated guide');
+		res.json(201);
+	}).error(function (error) {
+		console.log(error);
+		res.send(400, { error: 'An error occurred: ' + error });
 	});
 };
 
@@ -75,18 +78,31 @@ var getGuidePlaces = function (req, res, next) {
 
 var createGuidePlace = function (req, res) {
 	model.model('place').find(parseInt(req.params.pid, 10)).success(function (place) {
-		console.log(JSON.stringify(place));
 		res.guide.addPlace(place);
-		res.send(201);
+		res.json(201);
+	});
+};
+
+var deleteGuidePlace = function (req, res) {
+	model.model('place').find(parseInt(req.params.pid, 10)).success(function (place) {
+		res.guide.removePlace(place);
+		res.json(201);
 	});
 };
 
 var setup = function (app) {
 	app.get(app.get('rootUrl') + '/guides', getGuides);
-	app.post(app.get('rootUrl') + '/guides', createGuide);
+	
+	/* Adding and deleting place relations. */
 	app.post(app.get('rootUrl') + '/guides/:id/places/:pid', getGuide, createGuidePlace);
+	app.delete(app.get('rootUrl') + '/guides/:id/places/:pid', getGuide, deleteGuidePlace);
+	
+	/* Get places for a guide. */
 	app.get(app.get('rootUrl') + '/guides/:id/places', getGuide, getGuidePlaces, 
 		checkPlacesQuery, function (req, res) { res.send(res.places); });
+	
+	/* Create, update, and get new guide. */
+	app.post(app.get('rootUrl') + '/guides', createGuide);
 	app.put(app.get('rootUrl') + '/guides/:id', getGuide, updateGuide);
 	app.get(app.get('rootUrl') + '/guides/:id', getGuide, function (req, res) { 
 		res.send(res.guide);
