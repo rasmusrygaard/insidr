@@ -14,7 +14,7 @@
 	<div class="control-group">
 		<label class="control-label" for="selectCategory">Category</label>
 		<div class="controls">
-			<select name="selectCategory">
+			<select name="category">
 				{{#each categories}}
 					{{#isGuideCategory ../guide this}}
 						<option value="{{this.id}}" selected="selected">{{this.name}}</option>
@@ -27,15 +27,15 @@
 	</div>
 	<div class="control-group">
 		<label class="control-label" for="inputDescription">Description</label>
-		<div class="controls" id="inputDescription" name="description">
-			<textarea placeholder="Describe your guide" rows="5" value="{{guide.description}}"></textarea>
+		<div class="controls" name="description">
+			<textarea name="description" id="inputDescription" placeholder="Describe your guide" rows="5">{{guide.description}}</textarea>
 		</div>
 	</div>
 	<div class="control=group">
 		<div class="controls">
-			<button class="btn btn-success" id="submitButton">{{#if guide}}Save {{else}}Create {{/if}}Guide</button>
+			<button class="btn btn-success" id="submitButton">{{#if guide}}Save {{else}}Create {{/if}}</button>
 			<button class="btn btn-success" id="placesButton">Edit Places</button>
-			<button class="btn btn-danger" id="cancelButton">Cancel</button>
+			<button class="btn btn-info" id="cancelButton">Return</button>
 		</div>
 	</div>
 </form>

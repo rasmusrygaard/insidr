@@ -7,6 +7,8 @@ Insidr.Views.GuideForm = Backbone.View.extend({
 				return options.inverse(this);
 			}
 		});
+		this.listenTo(this.model.guide, 'change', this.render);
+		this.listenTo(this.model.categories, 'reset', this.render);
 		this.render();
 	},
 
@@ -29,10 +31,15 @@ Insidr.Views.GuideForm = Backbone.View.extend({
 	save: function (e) {
 		e.preventDefault();
 		var newCategory = this.$('select[name=selectCategory]').val();
+		var newName = this.$('input[name=name]').val();
+		var newDescription = this.$('textarea[name=description]').val();
 		var _this = this;
-		this.model.guide.save({categoryId: newCategory}).success(function () {
-			// Fix this
-			_this.render();
+		this.model.guide.save({categoryId: newCategory, name: newName, description: newDescription}, {
+			success: function () {
+				Insidr.Dispatcher.trigger('show_message', 'Guide updated!', 'success');
+			}, error: function (model, xhr, options) {
+				Insidr.Dispatcher.trigger('show_message', 'Error: ' + xhr.error(), 'error');
+			}
 		});
 	},
 

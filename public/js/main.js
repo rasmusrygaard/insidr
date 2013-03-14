@@ -6,6 +6,7 @@ var Insidr = new (Backbone.View.extend({
 	events: {
 		'click a': function (e) {
 			e.preventDefault();
+			Insidr.Dispatcher.trigger('hide_message');
 			Backbone.history.navigate(e.target.pathname, {trigger: true});
 		}
 	},
@@ -40,8 +41,7 @@ Insidr.Router = Backbone.Router.extend({
 	initialize: function () {
 		this.headerView = new Insidr.Views.Header();
 		$('.header').html(this.headerView.render().el);
-		this.flashView = new Insidr.Views.Flash();
-		$('#flash').html(this.flashView.render().el);
+		this.flashView = new Insidr.Views.Flash({el: $('#flash')});
 	},
 
 	getCategories: function () {
@@ -162,13 +162,34 @@ Insidr.Router = Backbone.Router.extend({
 
 Insidr.Dispatcher = _.extend({}, Backbone.Events);
 
-Insidr.Views.Flash = Backbone.View.Extend({
+Insidr.Views.Flash = Backbone.View.extend({
 	initialize: function () {
-		Dispatcher.bind('show_message', this.render);
+		Insidr.Dispatcher.bind('show_message', this.render, this);
+		Insidr.Dispatcher.bind('hide_message', this.hideMessage, this);
+		this.hideMessage();
 	},
 
-	render: function (msg) {
+	events: {
+		'click .close': 'hideMessage'
+	},
+
+	hideMessage: function () {
+		this.$el.hide();
+	},
+
+	render: function (msg, type) {
+		if (type === 'success') {
+			this.$el.addClass('alert-success');
+			this.$el.removeClass('alert-error');
+		} else {
+			this.$el.addClass('alert-error');
+			this.$el.removeClass('alert-success');
+		}
+		this.$el.show();
 		this.$el.html(this.template({message: msg}));
+		var _this = this;
+		setTimeout(function () { _this.hideMessage(); }, 3000);
+		return this;
 	}
 });
 
