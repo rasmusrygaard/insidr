@@ -15,8 +15,8 @@ INSERT INTO places VALUES ('3', NULL, 'La Boulange de Palo Alto', CURRENT_TIMEST
 INSERT INTO places VALUES ('4', NULL, 'GroundUp AOL', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL, '4');
 INSERT INTO places VALUES ('5', NULL, 'University Cafe', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL, '2');
 
-INSERT INTO guides VALUES ('1', 'Snobbery Guide', 'Palo Alto, CA', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '1');
-INSERT INTO guides VALUES ('2', 'Super Caffeinated', 'Palo Alto, CA', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '1');
+INSERT INTO guides VALUES ('1', 'Snobbery Guide', 'Palo Alto, CA', 'A guide to exquisite coffee.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '1');
+INSERT INTO guides VALUES ('2', 'Super Caffeinated', 'Palo Alto, CA', 'Get super caffeinated!', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '1');
 
 INSERT INTO guidesplaces VALUES ('1', '1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 INSERT INTO guidesplaces VALUES ('2', '1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
