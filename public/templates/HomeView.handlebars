@@ -1,8 +1,61 @@
 <h1>Insidr</h1>
 <h2>Let the locals guide you</h2>
 
-<ul class="nav nav-stacked nav-tabs">
-	{{#each categories}}
-<li><a href="/categories/{{this.id}}">{{this.name}}<i class="icon-chevron-right"></i></a></li>
-{{/each}}
-</ul>
+<div id="myCarousel" class="carousel slide">
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+  </ol>
+  <!-- Carousel items -->
+  <div class="carousel-inner">
+    <div class="active item">
+    	<img class="frontPageImage" src="/images/SushiSmall.png" />
+    	<div class="carousel-caption">
+    		<h2>Totally</h2>
+    	</div>
+    </div>
+    <div class="item">
+    	<img class="frontPageImage" src="/images/Ritual.png" />
+    	<div class="carousel-caption">
+    		<h2>That was a good drum break!</h2>
+    	</div>
+    </div>
+  </div>
+  <!-- Carousel nav -->
+  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+</div>
+
+{{! <div class="row-fluid">
+	<div class="span10 offset1"> }}
+		<div class="row-fluid">
+			<div class="span4 frontPageHeader hidden-phone">
+				<h3>Share Your Favorite Places</h3>
+				<img class="frontPageImage" src="/images/Coupa.png" />
+				<p>Insidr lets you discover new favorite places based on your existing tastes.
+					Like Four Barrel Coffee? Enjoy Sushi 88? Insidr will help you find others
+					like you and let you discover their favorite places.</p>
+			</div>
+			{{! <div class="span1"></div> }}
+			<div class="span4 frontPageHeader">
+				<h3>Categories</h3>
+				<ul class="nav nav-stacked nav-tabs">
+					{{#each categories}}
+					<li><a href="/categories/{{this.id}}">{{this.name}}<i class="icon-chevron-right"></i></a></li>
+					{{/each}}
+				</ul>
+			</div>
+			{{! <div class="span1"></div> }}
+			<div class="span4 frontPageHeader hidden-phone">
+				<h3>Explore Guides</h3>
+				<img class="frontPageImage" src="/images/Guide.png" />
+				<p>If you happen to be the foremost expert on cappuccinos or sushi, Insidr lets
+					you share your expertise with the world. You can create guides to your
+					favorite places and share them with friends, families, and other curious souls.
+				</p>
+			</div>
+		</div>
+{{! 	</div>
+</div> }}
+
+<p>Photos via <a href="https://secure.flickr.com/photos/niallkennedy/44601797/">niallkennedy</a> and <a href="https://secure.flickr.com/photos/h4ck/2981763309/">[cipher]</a></p>

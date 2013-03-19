@@ -23,13 +23,15 @@ Insidr.Views.Location = Backbone.View.extend({
 			map: map,
 			title: 'Testing!'
 		});
+
 		var _this = this;
 		google.maps.event.addListener(map, "bounds_changed", function() {
 			_this.boundsChanged = true;
 		});
+
 		google.maps.event.addListener(map, 'idle', function() {
 			google.maps.event.trigger(map, 'resize');
-			alert('idle');
+			map.setCenter(_this.latlng);
 			if (!_this.boundsChanged) {
 				map.setCenter(_this.latlng);
 			}

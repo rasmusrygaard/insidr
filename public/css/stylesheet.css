@@ -13,6 +13,24 @@ body { padding-top: 60px; }
 	}
 }
 
+.frontPageHeader > h3 {
+	text-align: center;
+}
+
+.frontPageHeader > p {
+	text-align: center;
+}
+
+.carousel {
+	color: #eee;
+}
+
+.frontPageImage {
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	margin-bottom: 5px;
+}
+
 .nav > li .icon-chevron-right {
 	float: right;
 	margin-top: 2px;
