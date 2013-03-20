@@ -21,6 +21,13 @@ body { padding-top: 60px; }
 	text-align: center;
 }
 
+.frontPageHeader {
+	padding: 9px;
+	border: 1px solid #e62914;
+	border-radius: 5px;
+	box-shadow: 0 1px white;
+}
+
 .carousel {
 	color: #eee;
 }
