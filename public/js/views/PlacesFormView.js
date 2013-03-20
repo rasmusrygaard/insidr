@@ -32,6 +32,7 @@ Insidr.Views.PlacesForm = Backbone.View.extend({
 	saveChanges: function (e) {
 		e.preventDefault();
 		this.model.places.save();
+		Insidr.Dispatcher.trigger('show_message', 'Places Saved!', 'success');
 	},
 
 	// Discard the changes in the model and return to the edit page.
