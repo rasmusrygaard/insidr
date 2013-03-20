@@ -11,6 +11,7 @@ var getPlaces = function (req, res) {
 
 /* Build a Place object in the db with properties from req.newPlace. */
 var buildPlace = function (req, res) {
+    console.log(req.newPlace);
     model.model('place').create(req.newPlace)
     .success(function (place) {
         console.log('Created place: ' + place);
@@ -29,10 +30,9 @@ var buildPlace = function (req, res) {
 var createPlace = function (req, res) {
     var newPlace = {};
     newPlace.fsId = req.body.fsId;
-    newPlace.name = req.body.name;
+    newPlace.name = req.body.name.replace("\'", ""); // Get rid of quotes
     newPlace.guideId = req.body.guideId;
     newPlace.locationId = req.body.locationId;
-
     model.model('place').find({ where: { fsId: newPlace.fsId }})
     .success(function(place) {
         if (place) {

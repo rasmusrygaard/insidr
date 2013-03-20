@@ -11,7 +11,12 @@ var getGuides = function (req, res) {
 };
 
 var createGuide = function (req, res) {
-	model.model('guide').create(req.body).success(function (guide) {
+	var newGuide = {};
+	newGuide.name = req.body.name;
+	newGuide.description = req.body.description;
+	newGuide.city = req.body.city;
+	newGuide.categoryId = req.body.categoryId;
+	model.model('guide').create(newGuide).success(function (guide) {
 		console.log('Created guide: ' + guide);
 		res.send(201, guide);
 	}).error(function (error) {

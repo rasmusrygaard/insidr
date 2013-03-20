@@ -19,12 +19,14 @@ Insidr.Views.Locations = Backbone.View.extend({
       var lng = loc.get('lng');
       if (!this.minLat || lat < this.minLat) {
         this.minLat = lat;
-      } else if (!this.maxLat || lat > this.maxLat) {
+      }
+      if (!this.maxLat || lat > this.maxLat) {
         this.maxLat = lat;
       }
       if (!this.minLng || lng < this.minLng) {
         this.minLng = lng;
-      } else if (!this.maxLng || lng > this.maxLng) {
+      }
+      if (!this.maxLng || lng > this.maxLng) {
         this.maxLng = lng;
       }
     }, this);

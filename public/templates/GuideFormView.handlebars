@@ -12,6 +12,12 @@
 		</div>
 	</div>
 	<div class="control-group">
+		<label class="control-label" for="inputCity">City</label>
+		<div class="controls">
+			<input type="text" id="inputCity" name="city" placeholder="Guide Location" value="{{guide.city}}">
+		</div>
+	</div>
+	<div class="control-group">
 		<label class="control-label" for="selectCategory">Category</label>
 		<div class="controls">
 			<select name="category">
@@ -33,8 +39,10 @@
 	</div>
 	<div class="control=group">
 		<div class="controls">
-			<button class="btn btn-success" id="submitButton">{{#if guide}}Save {{else}}Create {{/if}}</button>
+			<button class="btn btn-success" id="submitButton">{{#if guide.id}}Save {{else}}Create {{/if}} Guide</button>
+			{{#if guide.id}}
 			<button class="btn btn-success" id="placesButton">Edit Places</button>
+			{{/if}}
 			<button class="btn btn-info" id="cancelButton">Return</button>
 		</div>
 	</div>

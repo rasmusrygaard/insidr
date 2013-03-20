@@ -30,13 +30,20 @@ Insidr.Views.GuideForm = Backbone.View.extend({
 
 	save: function (e) {
 		e.preventDefault();
-		var newCategory = this.$('select[name=selectCategory]').val();
+		var newCategory = this.$('select[name=category]').val();
 		var newName = this.$('input[name=name]').val();
 		var newDescription = this.$('textarea[name=description]').val();
+		var newCity = this.$('input[name=city]').val();
 		var _this = this;
-		this.model.guide.save({categoryId: newCategory, name: newName, description: newDescription}, {
-			success: function () {
-				Insidr.Dispatcher.trigger('show_message', 'Guide updated!', 'success');
+		var isEdit = this.model.guide.has('id');
+		var obj = {name: newName, description: newDescription, city: newCity, categoryId: newCategory};
+		this.model.guide.save(obj, {
+			success: function (m) {
+				if (!isEdit) {
+					Backbone.history.navigate('/guides/' + m.get('id') + '/places/edit', {trigger: true});
+				} else {
+					Insidr.Dispatcher.trigger('show_message', 'Guide updated!', 'success');
+				}
 			}, error: function (model, xhr, options) {
 				Insidr.Dispatcher.trigger('show_message', 'Error: ' + xhr.error(), 'error');
 			}
