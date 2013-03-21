@@ -1,0 +1,492 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: categories; Type: TABLE; Schema: public; Owner: rasmusrygaard; Tablespace: 
+--
+
+CREATE TABLE categories (
+    id integer NOT NULL,
+    name character varying(255),
+    "createdAt" timestamp without time zone NOT NULL,
+    "updatedAt" timestamp without time zone NOT NULL,
+    "guideId" integer
+);
+
+
+ALTER TABLE public.categories OWNER TO rasmusrygaard;
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE; Schema: public; Owner: rasmusrygaard
+--
+
+CREATE SEQUENCE categories_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.categories_id_seq OWNER TO rasmusrygaard;
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: rasmusrygaard
+--
+
+ALTER SEQUENCE categories_id_seq OWNED BY categories.id;
+
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: rasmusrygaard
+--
+
+SELECT pg_catalog.setval('categories_id_seq', 1, false);
+
+
+--
+-- Name: category.js~s; Type: TABLE; Schema: public; Owner: rasmusrygaard; Tablespace: 
+--
+
+CREATE TABLE "category.js~s" (
+    id integer NOT NULL,
+    name character varying(255),
+    city character varying(255),
+    created timestamp without time zone,
+    "createdAt" timestamp without time zone NOT NULL,
+    "updatedAt" timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public."category.js~s" OWNER TO rasmusrygaard;
+
+--
+-- Name: category.js~s_id_seq; Type: SEQUENCE; Schema: public; Owner: rasmusrygaard
+--
+
+CREATE SEQUENCE "category.js~s_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."category.js~s_id_seq" OWNER TO rasmusrygaard;
+
+--
+-- Name: category.js~s_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: rasmusrygaard
+--
+
+ALTER SEQUENCE "category.js~s_id_seq" OWNED BY "category.js~s".id;
+
+
+--
+-- Name: category.js~s_id_seq; Type: SEQUENCE SET; Schema: public; Owner: rasmusrygaard
+--
+
+SELECT pg_catalog.setval('"category.js~s_id_seq"', 1, false);
+
+
+--
+-- Name: guides; Type: TABLE; Schema: public; Owner: rasmusrygaard; Tablespace: 
+--
+
+CREATE TABLE guides (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    city character varying(255) NOT NULL,
+    description character varying(255) NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "updatedAt" timestamp without time zone NOT NULL,
+    "categoryId" integer
+);
+
+
+ALTER TABLE public.guides OWNER TO rasmusrygaard;
+
+--
+-- Name: guides_id_seq; Type: SEQUENCE; Schema: public; Owner: rasmusrygaard
+--
+
+CREATE SEQUENCE guides_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.guides_id_seq OWNER TO rasmusrygaard;
+
+--
+-- Name: guides_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: rasmusrygaard
+--
+
+ALTER SEQUENCE guides_id_seq OWNED BY guides.id;
+
+
+--
+-- Name: guides_id_seq; Type: SEQUENCE SET; Schema: public; Owner: rasmusrygaard
+--
+
+SELECT pg_catalog.setval('guides_id_seq', 6, true);
+
+
+--
+-- Name: guidesplaces; Type: TABLE; Schema: public; Owner: rasmusrygaard; Tablespace: 
+--
+
+CREATE TABLE guidesplaces (
+    "placeId" integer NOT NULL,
+    "guideId" integer NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "updatedAt" timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.guidesplaces OWNER TO rasmusrygaard;
+
+--
+-- Name: locations; Type: TABLE; Schema: public; Owner: rasmusrygaard; Tablespace: 
+--
+
+CREATE TABLE locations (
+    id integer NOT NULL,
+    address character varying(255),
+    city character varying(255),
+    country character varying(255),
+    lat double precision,
+    lng double precision,
+    "postalCode" integer,
+    state character varying(255),
+    "createdAt" timestamp without time zone NOT NULL,
+    "updatedAt" timestamp without time zone NOT NULL,
+    "placeId" integer
+);
+
+
+ALTER TABLE public.locations OWNER TO rasmusrygaard;
+
+--
+-- Name: locations_id_seq; Type: SEQUENCE; Schema: public; Owner: rasmusrygaard
+--
+
+CREATE SEQUENCE locations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.locations_id_seq OWNER TO rasmusrygaard;
+
+--
+-- Name: locations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: rasmusrygaard
+--
+
+ALTER SEQUENCE locations_id_seq OWNED BY locations.id;
+
+
+--
+-- Name: locations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: rasmusrygaard
+--
+
+SELECT pg_catalog.setval('locations_id_seq', 27, true);
+
+
+--
+-- Name: places; Type: TABLE; Schema: public; Owner: rasmusrygaard; Tablespace: 
+--
+
+CREATE TABLE places (
+    id integer NOT NULL,
+    "fsId" character varying(255),
+    name character varying(255),
+    "createdAt" timestamp without time zone NOT NULL,
+    "updatedAt" timestamp without time zone NOT NULL,
+    "guideId" integer,
+    "locationId" integer
+);
+
+
+ALTER TABLE public.places OWNER TO rasmusrygaard;
+
+--
+-- Name: places_id_seq; Type: SEQUENCE; Schema: public; Owner: rasmusrygaard
+--
+
+CREATE SEQUENCE places_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.places_id_seq OWNER TO rasmusrygaard;
+
+--
+-- Name: places_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: rasmusrygaard
+--
+
+ALTER SEQUENCE places_id_seq OWNED BY places.id;
+
+
+--
+-- Name: places_id_seq; Type: SEQUENCE SET; Schema: public; Owner: rasmusrygaard
+--
+
+SELECT pg_catalog.setval('places_id_seq', 21, true);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: rasmusrygaard
+--
+
+ALTER TABLE ONLY categories ALTER COLUMN id SET DEFAULT nextval('categories_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: rasmusrygaard
+--
+
+ALTER TABLE ONLY "category.js~s" ALTER COLUMN id SET DEFAULT nextval('"category.js~s_id_seq"'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: rasmusrygaard
+--
+
+ALTER TABLE ONLY guides ALTER COLUMN id SET DEFAULT nextval('guides_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: rasmusrygaard
+--
+
+ALTER TABLE ONLY locations ALTER COLUMN id SET DEFAULT nextval('locations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: rasmusrygaard
+--
+
+ALTER TABLE ONLY places ALTER COLUMN id SET DEFAULT nextval('places_id_seq'::regclass);
+
+
+--
+-- Data for Name: categories; Type: TABLE DATA; Schema: public; Owner: rasmusrygaard
+--
+
+COPY categories (id, name, "createdAt", "updatedAt", "guideId") FROM stdin;
+1	Coffee	2013-03-20 13:56:05.733036	2013-03-20 13:56:05.733036	\N
+2	Food	2013-03-20 13:56:05.734706	2013-03-20 13:56:05.734706	\N
+3	Drinks	2013-03-20 13:56:05.737155	2013-03-20 13:56:05.737155	\N
+4	Shopping	2013-03-20 13:56:05.737778	2013-03-20 13:56:05.737778	\N
+5	Clubs	2013-03-20 13:56:05.738311	2013-03-20 13:56:05.738311	\N
+\.
+
+
+--
+-- Data for Name: category.js~s; Type: TABLE DATA; Schema: public; Owner: rasmusrygaard
+--
+
+COPY "category.js~s" (id, name, city, created, "createdAt", "updatedAt") FROM stdin;
+\.
+
+
+--
+-- Data for Name: guides; Type: TABLE DATA; Schema: public; Owner: rasmusrygaard
+--
+
+COPY guides (id, name, city, description, "createdAt", "updatedAt", "categoryId") FROM stdin;
+1	Snobbery Guide	Palo Alto, CA	A guide to exquisite coffee.	2013-03-20 13:56:05.729067	2013-03-20 13:56:05.729067	1
+2	Super Caffeinated	Palo Alto, CA	Get super caffeinated!	2013-03-20 13:56:05.730001	2013-03-20 13:56:05.730001	1
+3	Sushi	Mountain View, CA	Fresh, delicious fish for everybody.	2013-03-20 20:56:39.486	2013-03-20 20:56:39.486	2
+4	Sandwiches	Palo Alto, CA	Carbs for everybody.	2013-03-20 21:02:35.103	2013-03-20 21:02:35.104	2
+5	Date Places	San Francisco, CA	Lots of love for Jordan and Ras	2013-03-21 06:04:10.578	2013-03-21 06:04:10.578	2
+6	Willas Books	Santa Cruz, CA	Nerds unite!	2013-03-21 06:09:35.905	2013-03-21 06:09:35.906	1
+\.
+
+
+--
+-- Data for Name: guidesplaces; Type: TABLE DATA; Schema: public; Owner: rasmusrygaard
+--
+
+COPY guidesplaces ("placeId", "guideId", "createdAt", "updatedAt") FROM stdin;
+1	1	2013-03-20 13:56:05.730573	2013-03-20 13:56:05.730573
+2	1	2013-03-20 13:56:05.731115	2013-03-20 13:56:05.731115
+4	1	2013-03-20 13:56:05.731576	2013-03-20 13:56:05.731576
+1	2	2013-03-20 13:56:05.731941	2013-03-20 13:56:05.731941
+3	2	2013-03-20 13:56:05.732309	2013-03-20 13:56:05.732309
+5	2	2013-03-20 13:56:05.732675	2013-03-20 13:56:05.732675
+6	3	2013-03-20 20:56:46.564	2013-03-20 20:56:46.565
+7	3	2013-03-20 20:56:46.566	2013-03-20 20:56:46.566
+8	4	2013-03-20 21:09:07.317	2013-03-20 21:09:07.318
+9	4	2013-03-20 21:09:07.319	2013-03-20 21:09:07.319
+12	4	2013-03-20 21:09:07.319	2013-03-20 21:09:07.319
+13	5	2013-03-21 06:07:33.808	2013-03-21 06:07:33.808
+14	5	2013-03-21 06:07:33.809	2013-03-21 06:07:33.809
+15	5	2013-03-21 06:07:33.809	2013-03-21 06:07:33.809
+16	5	2013-03-21 06:07:33.809	2013-03-21 06:07:33.809
+17	5	2013-03-21 06:07:33.81	2013-03-21 06:07:33.81
+18	5	2013-03-21 06:07:33.81	2013-03-21 06:07:33.81
+19	6	2013-03-21 06:10:21.797	2013-03-21 06:10:21.798
+20	6	2013-03-21 06:10:21.798	2013-03-21 06:10:21.798
+21	6	2013-03-21 06:10:21.798	2013-03-21 06:10:21.798
+\.
+
+
+--
+-- Data for Name: locations; Type: TABLE DATA; Schema: public; Owner: rasmusrygaard
+--
+
+COPY locations (id, address, city, country, lat, lng, "postalCode", state, "createdAt", "updatedAt", "placeId") FROM stdin;
+1	571 Escondido Mall	Stanford	United States	37.426124999999999	-122.167035999999996	94301	CA	2013-03-20 13:56:05.720947	2013-03-20 13:56:05.720947	1
+2	271 University Ave	Palo Alto	United States	37.4456844746329196	-122.161929375506162	94301	CA	2013-03-20 13:56:05.723244	2013-03-20 13:56:05.723244	5
+3	151 University Ave	Palo Alto	United States	37.4442330377474946	-122.163326454683144	94301	CA	2013-03-20 13:56:05.724523	2013-03-20 13:56:05.724523	3
+4	395 Page Mill Rd.	Palo Alto	United States	37.4252265653389529	-122.139224297998652	94306	CA	2013-03-20 13:56:05.725038	2013-03-20 13:56:05.725038	4
+5	101 Forest Ave.	Palo Alto	United States	37.4420862820557261	-122.161591190915019	94301	CA	2013-03-20 13:56:05.725518	2013-03-20 13:56:05.725518	2
+6	2595 California St #C	Mountain View	United States	37.4054292403513031	-122.110701722496998	94040	CA	2013-03-20 20:56:42.534	2013-03-20 20:56:42.534	6
+7	506 Showers Dr	Mountain View	United States	37.4029962741077995	-122.106613775667995	94040	CA	2013-03-20 20:56:45.81	2013-03-20 20:56:45.81	7
+8	151 University Ave	Palo Alto	United States	37.4442330377475017	-122.163326454683002	94301	Ca	2013-03-20 21:02:39.245	2013-03-20 21:02:39.246	8
+9	261 University Ave	Palo Alto	United States	37.4456301860851966	-122.162110805511006	94301	CA	2013-03-20 21:02:45.496	2013-03-20 21:02:45.496	9
+10	3191 Middlefield Rd.	Palo Alto	United States	37.4295039657275979	-122.122685015201995	94306	CA	2013-03-20 21:03:27.204	2013-03-20 21:03:27.204	10
+11	129 Lytton Ave	Palo Alto	United States	37.444704999999999	-122.165032999999994	94301	CA	2013-03-20 21:03:57.756	2013-03-20 21:03:57.756	11
+12	261 University Ave	Palo Alto	United States	37.4456301860851823	-122.162110805511475	94301	CA	2013-03-20 21:04:35.555	2013-03-20 21:04:35.555	\N
+13	261 University Ave	Palo Alto	United States	37.4456301860851823	-122.162110805511475	94301	CA	2013-03-20 21:06:45.704	2013-03-20 21:06:45.705	\N
+14	151 University Ave	Palo Alto	United States	37.4442330377474946	-122.163326454683144	94301	Ca	2013-03-20 21:07:06.658	2013-03-20 21:07:06.659	\N
+15	475 Via Ortega	Stanford	United States	37.4279999999999973	-122.174099999999996	94305	CA	2013-03-20 21:09:04.644	2013-03-20 21:09:04.644	12
+16	600 Guerrero St.	San Francisco	United States	37.7614213141130008	-122.424009740353	94110	CA	2013-03-21 06:04:15.849	2013-03-21 06:04:15.849	13
+17	2401 Harrison St	San Francisco	United States	37.7590055299452985	-122.412407080061996	94110	CA	2013-03-21 06:04:21.315	2013-03-21 06:04:21.315	14
+18	1123 Folsom St.	San Francisco	United States	37.7761709999999979	-122.408366000000001	94103	CA	2013-03-21 06:04:37.38	2013-03-21 06:04:37.38	15
+19	2234 Mission St	San Francisco	United States	37.7612241103888024	-122.419323921203997	94110	CA	2013-03-21 06:04:49.841	2013-03-21 06:04:49.842	16
+20	1199 Valencia St	San Francisco	United States	37.7537844795200002	-122.420741900194997	94110	CA	2013-03-21 06:05:06.756	2013-03-21 06:05:06.756	17
+21	600 Guerrero St.	San Francisco	United States	37.7614213141130435	-122.424009740352631	94110	CA	2013-03-21 06:06:19.129	2013-03-21 06:06:19.129	\N
+22	1123 Folsom St.	San Francisco	United States	37.7761709999999979	-122.408366000000001	94103	CA	2013-03-21 06:06:25.685	2013-03-21 06:06:25.685	\N
+23	2401 Harrison St	San Francisco	United States	37.7590055299453269	-122.412407080062195	94110	CA	2013-03-21 06:06:43.686	2013-03-21 06:06:43.686	\N
+24	3692 18th St.	San Francisco	United States	37.7614790497159021	-122.425763489695001	94110	CA	2013-03-21 06:07:32.573	2013-03-21 06:07:32.574	18
+25	1520 Pacific Ave.	Santa Cruz	United States	36.9755839488430027	-122.026433944702006	95060	CA	2013-03-21 06:09:51.431	2013-03-21 06:09:51.431	19
+26	1117 Pacific Ave.	Santa Cruz	United States	36.9722239720454979	-122.025704383849998	95060	CA	2013-03-21 06:09:59.4	2013-03-21 06:09:59.401	20
+27	204 Locust St	Santa Cruz	United States	36.9749770000000026	-122.028081209999996	95060	CA	2013-03-21 06:10:19.377	2013-03-21 06:10:19.377	21
+\.
+
+
+--
+-- Data for Name: places; Type: TABLE DATA; Schema: public; Owner: rasmusrygaard
+--
+
+COPY places (id, "fsId", name, "createdAt", "updatedAt", "guideId", "locationId") FROM stdin;
+1	\N	Coupa Green Library	2013-03-20 13:56:05.726001	2013-03-20 13:56:05.726001	\N	1
+2	\N	Philz Coffee	2013-03-20 13:56:05.727134	2013-03-20 13:56:05.727134	\N	5
+3	\N	La Boulange de Palo Alto	2013-03-20 13:56:05.727736	2013-03-20 13:56:05.727736	\N	3
+4	\N	GroundUp AOL	2013-03-20 13:56:05.728181	2013-03-20 13:56:05.728181	\N	4
+5	\N	University Cafe	2013-03-20 13:56:05.728631	2013-03-20 13:56:05.728631	\N	2
+6	4c88484bed0aa143a17da8f3	Oh My Sushi	2013-03-20 20:56:42.569	2013-03-20 20:56:42.57	3	6
+7	4bc8a41e0050b713c4cfba3b	Sushi 88 & Ramen	2013-03-20 20:56:45.842	2013-03-20 20:56:45.842	3	7
+8	4faedf85e4b0fd09a956a9c9	La Boulange de Palo Alto	2013-03-20 21:02:39.275	2013-03-20 21:02:39.275	4	8
+9	4df7ce8315205e0e3f6b06a4	Orens Hummus Shop	2013-03-20 21:02:45.52	2013-03-20 21:02:45.523	4	9
+10	4a64b53bf964a52087c61fe3	Philz Coffee	2013-03-20 21:03:27.24	2013-03-20 21:03:27.241	4	10
+11	45126099f964a5209f391fe3	Darbar Indian Cuisine	2013-03-20 21:03:57.793	2013-03-20 21:03:57.793	4	11
+12	4c746508db52b1f7ac1076dc	Ikes Place	2013-03-20 21:09:04.706	2013-03-20 21:09:04.706	4	15
+13	42814b00f964a52002221fe3	Tartine Bakery	2013-03-21 06:04:15.885	2013-03-21 06:04:15.886	5	16
+14	4a8b6942f964a520660c20e3	Flour + Water	2013-03-21 06:04:21.34	2013-03-21 06:04:21.341	5	17
+15	4b92905af964a520b30434e3	Radius	2013-03-21 06:04:37.63	2013-03-21 06:04:37.63	5	18
+16	4c325dd83896e21e6d6ee890	Mission Chinese Food	2013-03-21 06:04:49.866	2013-03-21 06:04:49.866	5	19
+17	49a2545cf964a52094521fe3	Beretta	2013-03-21 06:05:06.783	2013-03-21 06:05:06.784	5	20
+18	45eaff58f964a5208e431fe3	Bi-Rite Creamery	2013-03-21 06:07:32.6	2013-03-21 06:07:32.6	5	24
+19	4a3ea4aaf964a52032a31fe3	Bookshop Santa Cruz	2013-03-21 06:09:51.459	2013-03-21 06:09:51.46	6	25
+20	4ae240d1f964a520728c21e3	Logos Books & Records	2013-03-21 06:09:59.423	2013-03-21 06:09:59.424	6	26
+21	4ca7b300b7106dcb55e56aa5	The Literary Guillotine	2013-03-21 06:10:19.409	2013-03-21 06:10:19.41	6	27
+\.
+
+
+--
+-- Name: categories_pkey; Type: CONSTRAINT; Schema: public; Owner: rasmusrygaard; Tablespace: 
+--
+
+ALTER TABLE ONLY categories
+    ADD CONSTRAINT categories_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: category.js~s_pkey; Type: CONSTRAINT; Schema: public; Owner: rasmusrygaard; Tablespace: 
+--
+
+ALTER TABLE ONLY "category.js~s"
+    ADD CONSTRAINT "category.js~s_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: guides_pkey; Type: CONSTRAINT; Schema: public; Owner: rasmusrygaard; Tablespace: 
+--
+
+ALTER TABLE ONLY guides
+    ADD CONSTRAINT guides_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: guidesplaces_pkey; Type: CONSTRAINT; Schema: public; Owner: rasmusrygaard; Tablespace: 
+--
+
+ALTER TABLE ONLY guidesplaces
+    ADD CONSTRAINT guidesplaces_pkey PRIMARY KEY ("placeId", "guideId");
+
+
+--
+-- Name: locations_pkey; Type: CONSTRAINT; Schema: public; Owner: rasmusrygaard; Tablespace: 
+--
+
+ALTER TABLE ONLY locations
+    ADD CONSTRAINT locations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: places_fsId_key; Type: CONSTRAINT; Schema: public; Owner: rasmusrygaard; Tablespace: 
+--
+
+ALTER TABLE ONLY places
+    ADD CONSTRAINT "places_fsId_key" UNIQUE ("fsId");
+
+
+--
+-- Name: places_pkey; Type: CONSTRAINT; Schema: public; Owner: rasmusrygaard; Tablespace: 
+--
+
+ALTER TABLE ONLY places
+    ADD CONSTRAINT places_pkey PRIMARY KEY (id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
