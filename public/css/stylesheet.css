@@ -13,6 +13,12 @@ body { padding-top: 60px; }
 	}
 }
 
+.row-fluid .pull-left[class*="span"]:last-child { margin-left: 0; }
+
+@media (max-width: 767px) {
+    .row-fluid .pull-right[class*="span"] { float: none; }
+}
+
 .frontPageHeader > h3 {
 	text-align: center;
 }
@@ -26,6 +32,19 @@ body { padding-top: 60px; }
 	border: 1px solid #e62914;
 	border-radius: 5px;
 	box-shadow: 0 1px white;
+}
+
+.userSquare img {
+	float: right;
+}
+
+.userSquare > h4 {
+	float: right;
+	padding-right: 5px;
+}
+
+.frontPageTitle {
+	text-align: center;
 }
 
 #newGuideButton {
