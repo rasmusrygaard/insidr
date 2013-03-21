@@ -33,7 +33,7 @@ var getGuide = function (req, res, next) {
 };
 
 var checkPlacesQuery = function (req, res, next) {
-	var toReturn = _.sortBy(res.places, function (p) { return p.placeId });
+	var toReturn = _.sortBy(res.places, function (p) { return p.placeId; });
 	if (req.query.locations == 'true') {
 		var locationIDs = _.map(res.places, function (p) { return p.locationId; });
 
@@ -83,7 +83,8 @@ var getGuidePlaces = function (req, res, next) {
 
 var createGuidePlace = function (req, res) {
 	model.model('place').find(parseInt(req.params.pid, 10)).success(function (place) {
-		res.guide.addPlace(place);
+		place.addGuide(res.guide);
+		console.log('Added place to guide');
 		res.json(201);
 	});
 };

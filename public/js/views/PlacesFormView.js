@@ -31,7 +31,7 @@ Insidr.Views.PlacesForm = Backbone.View.extend({
 	// POST/DELETE requests for the guides and places.
 	saveChanges: function (e) {
 		e.preventDefault();
-		this.model.places.save();
+		this.model.places.save(this.model.guide.get('id'));
 		Insidr.Dispatcher.trigger('show_message', 'Places Saved!', 'success');
 	},
 

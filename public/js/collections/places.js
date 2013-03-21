@@ -16,20 +16,20 @@ Insidr.Collections.Places = Backbone.Collection.extend({
         this.requests.push({model: model, type: 'POST'});
     },
 
-    buildRequest: function (obj) {
+    buildRequest: function (obj, guideId) {
         return {
             type: obj.type,
-            url: '/api/guides/' + obj.model.get('guideId') + '/places/' + obj.model.get('id')
+            url: '/api/guides/' + guideId + '/places/' + obj.model.get('id')
         };
         
     },
 
     /* Not quite working yet. Need to POST/DELETE to /api/guides/:id/places/:pid */
-    save: function () {
+    save: function (guideId) {
         var _this = this;
         /* Build AJAX requests from each queued request. */
         var deferreds = _.map(this.requests, function (r) { 
-            return $.ajax(_this.buildRequest(r)); 
+            return $.ajax(_this.buildRequest(r, guideId)); 
         });
         $.when.apply(null, deferreds).done(function () {
             _this.requests = [];
