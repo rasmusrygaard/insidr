@@ -28,6 +28,11 @@ body { padding-top: 60px; }
 	box-shadow: 0 1px white;
 }
 
+#newGuideButton {
+	float: right;
+	margin-bottom: 10px;
+}
+
 .carousel {
 	color: #eee;
 }

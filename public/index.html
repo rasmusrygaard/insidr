@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Insidr - Let the locals guide you</title>
     <link href="//netdna.bootstrapcdn.com/bootswatch/2.3.0/simplex/bootstrap.min.css" rel="stylesheet">
-    <!-- <link href="//netdna.bootstrapcdn.com/bootswatch/2.3.0/united/bootstrap.min.css" rel="stylesheet"> -->
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="/css/stylesheet.css" rel="stylesheet">
   <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyAQqHvxkQjPa1a7DR9gz6Wgtf_0Vpkx13Y&sensor=true" type="text/javascript"></script>
   </head>
+
   <body>
 
   <div class="header"></div>
@@ -65,5 +65,13 @@
   <!-- Production
   <script src="/app.min.js" type="text/javascript"></script>
   -->
+  <!-- Place this asynchronous JavaScript just before your </body> tag -->
+  <script type="text/javascript">
+    (function() {
+     var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+     po.src = 'https://apis.google.com/js/client:plusone.js';
+     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+   })();
+  </script>
 </body>
 </html>

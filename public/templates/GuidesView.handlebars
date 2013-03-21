@@ -1,7 +1,17 @@
-<h2>Guides</h2>
-
-<ul class="nav nav-stacked nav-tabs">
-  {{#each guides}}
-  <li><a href="/guides/{{id}}">{{name}} ({{city}})</a></li>
-  {{/each}}
-</ul>
+<div class="row-fluid">
+	<div class="span9">
+		<h2>Guides</h2>
+	</div>
+	<div class="span3">
+		<button class="btn btn-info" id="newGuideButton">New Guide</button>
+	</div>
+</div>
+<div class="row-fluid">
+	<div class="span12">
+		<ul class="nav nav-stacked nav-tabs">
+			{{#each guides}}
+			<li><a href="/guides/{{id}}">{{name}} ({{city}})</a></li>
+			{{/each}}
+		</ul>
+	</div>
+</div>

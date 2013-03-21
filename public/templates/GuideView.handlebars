@@ -7,13 +7,11 @@
     <tr>
       <th>Place</th>
       <th>Address</th>
-      <th>Postal Code</th>
     </tr>
   {{#each places}}
     <tr>
       <td><a href="/places/{{this.id}}">{{this.name}}</a></td>
       <td>{{address this}}</td>
-      <td>{{postalCode this}}</td>
     </tr>
   {{/each}}
   </table>
