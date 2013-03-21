@@ -196,6 +196,7 @@ Insidr.Views.Flash = Backbone.View.extend({
 var signinCallback = function (authResult) {
     if (authResult.access_token) {
         $('#signinButton').hide();
+        alert('hidden');
         /* Load Google+ API */
         gapi.client.load('plus','v1', function() {
             /* Fetch user. */

@@ -16,7 +16,7 @@ body { padding-top: 60px; }
 .row-fluid .pull-left[class*="span"]:last-child { margin-left: 0; }
 
 @media (max-width: 767px) {
-    .row-fluid .pull-right[class*="span"] { float: none; }
+	.row-fluid .pull-right[class*="span"] { float: none; }
 }
 
 .frontPageHeader > h3 {
@@ -34,13 +34,15 @@ body { padding-top: 60px; }
 	box-shadow: 0 1px white;
 }
 
-.userSquare img {
-	float: right;
-}
+@media (max-width: 767px) {
+	.userSquare img {
+		float: right;
+	}
 
-.userSquare > h4 {
-	float: right;
-	padding-right: 5px;
+	.userSquare > h4 {
+		float: right;
+		padding-right: 5px;
+	}
 }
 
 .frontPageTitle {
