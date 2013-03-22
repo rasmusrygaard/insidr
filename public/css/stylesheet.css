@@ -54,10 +54,7 @@ body { padding-top: 60px; }
 }
 
 .sampleGuide {
-	border: 1px solid #e62914;
-	border-radius: 5px;
 	padding: 5px;
-	cursor: pointer;
 }
 
 #newGuideButton {
