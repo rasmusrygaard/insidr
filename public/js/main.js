@@ -5,9 +5,11 @@ var Insidr = new (Backbone.View.extend({
     Router: {},
     events: {
         'click a': function (e) {
-            e.preventDefault();
-            Insidr.Dispatcher.trigger('hide_message');
-            Backbone.history.navigate(e.target.pathname, {trigger: true});
+            if (!$(e.target).hasClass('external')) {
+                e.preventDefault();
+                Insidr.Dispatcher.trigger('hide_message');
+                Backbone.history.navigate(e.target.pathname, {trigger: true});
+            }
         }
     },
     start: function () {
@@ -54,9 +56,20 @@ Insidr.Router = Backbone.Router.extend({
 
     home: function () {
         if (!this.homeView) {
-            this.homeView = new Insidr.Views.Home({model: this.getCategories() });
+            var bootstrapGuides = [
+                { name: "Willa's Books", city: "Santa Cruz, CA", id: 6 },
+                { name: "Date Places", city: "San Francisco, CA", id: 5 },
+                { name: "San Francisco Coffee Crawl", city: "San Francisco, CA", id: 7 },
+                { name: "Hacker Gourmet", city: "Stanford, CA", id: 9 },
+                { name: "Danish Coffee", city: "Copenhagen, Denmark", id: 10},
+                { name: "Seattle Gourmet", city: "Seattle, WA", id: 11}
+            ];
+            this.homeView = new Insidr.Views.Home({model: {
+                categories: this.getCategories(), 
+                guides: bootstrapGuides
+            }});
         }
-        $('#content').html(this.homeView.el);
+        $('#content').html(this.homeView.render().el);
     },
 
     // GET '/categories'
@@ -207,13 +220,13 @@ var signinCallback = function (authResult) {
             });
         });
         
-      } else if (authResult.error) {
+    } else if (authResult.error) {
         // There was an error.
         // Possible error codes:
         //   "access_denied" - User denied access to your app
         //   "immediate_failed" - Could not automatially log in the user
         // console.log('There was an error: ' + authResult['error']);
-      }
+    }
     
     
 };
